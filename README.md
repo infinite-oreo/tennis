@@ -2,9 +2,9 @@
 
 # 🎾 Tennis
 
-**让每一位球迷都成为真正的行家**
+**Be the ultimate tennis expert**
 
-实时比分 · 深度数据 · 赛事直播 · 一站掌握全球顶级赛事动态
+Live Scores · Deep Analytics · Match Alerts · All Major Tours in One Place
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite)](https://vitejs.dev)
@@ -15,120 +15,120 @@
 
 ---
 
-## 概览
+## Overview
 
-Tennis 是一款面向网球球迷的全功能追踪平台。从毫秒级实时比分到深度球员数据，从智能赛事提醒到精彩集锦回放，一个平台解决所有需求。
+Tennis is a full-featured tracking platform for tennis fans. Real-time scores, in-depth player stats, smart match alerts, and highlight replays — everything you need in one place.
 
-> 50,000+ 球迷的选择，覆盖全部 ATP/WTA 赛事。
-
----
-
-## 功能
-
-| 功能 | 描述 |
-|------|------|
-| ⚡ **毫秒级实时比分** | 比官方网站快 3 倍的数据更新，WebSocket 推送延迟 < 0.3s |
-| 📊 **深度数据分析** | 发球速度、破发率、ACE 球统计，数据颗粒度达到每分球 |
-| 📅 **智能赛事日历** | 全年赛程一目了然，比赛开始前 30 分钟自动推送提醒 |
-| 👤 **球员深度档案** | 覆盖 ATP/WTA 1000+ 在役球员，历史战绩与技术风格全收录 |
-| 🎬 **精彩集锦回放** | 关键分、破发点、决胜局高光，随时回看不遗漏任何精彩 |
-| 📈 **世界排名实时** | 每周积分变动、晋升轨迹、年终总决赛资格竞争态势追踪 |
+> Trusted by 50,000+ fans across all ATP & WTA tours.
 
 ---
 
-## 技术栈
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| ⚡ **Millisecond Live Scores** | 3× faster than official sites — WebSocket push with < 0.3s latency |
+| 📊 **Deep Data Analytics** | Serve speed, break rate, ace count — stats down to every single point |
+| 📅 **Smart Match Calendar** | Full-year schedule at a glance, with push notifications 30 min before each match |
+| 👤 **Player Profiles** | 1000+ active ATP/WTA players — career records, current form, playing style |
+| 🎬 **Highlight Replays** | Key points, break points, and deciding set moments — rewatch anytime |
+| 📈 **Live Rankings** | Weekly point changes, ranking trajectories, and year-end qualification races |
+
+---
+
+## Tech Stack
 
 ```
-前端框架    React 19
-构建工具    Vite 6
-样式系统    TailwindCSS 4（Vite 插件版）+ CSS 变量设计系统
-组件库      shadcn/ui（Radix 无障碍原语 + nature 主题）
-动效引擎    Framer Motion（Spring 物理动画，Apple 级动效）
-路由        React Router v7
-认证后端    Supabase（Google OAuth）
-WebGL       Three.js（Hero 区 Navier-Stokes 流体背景）
-图标        lucide-react / react-icons
+Framework       React 19
+Build Tool      Vite 6
+Styling         TailwindCSS 4 (Vite plugin) + CSS variable design system
+Components      shadcn/ui (Radix primitives + nature theme)
+Animation       Framer Motion (Spring physics, Apple-quality motion)
+Routing         React Router v7
+Auth & Backend  Supabase (Google OAuth)
+WebGL           Three.js (Navier-Stokes fluid simulation in Hero)
+Icons           lucide-react / react-icons
 ```
 
 ---
 
-## 本地运行
+## Getting Started
 
-**前置要求：** Node.js 18+
+**Prerequisites:** Node.js 18+
 
 ```bash
-# 1. 克隆仓库
+# 1. Clone the repo
 git clone https://github.com/infinite-oreo/tennis.git
 cd tennis
 
-# 2. 安装依赖
+# 2. Install dependencies
 npm install
 
-# 3. 配置环境变量
+# 3. Set up environment variables
 cp .env.example .env
-# 填入 Supabase Project URL 和 anon key
+# Fill in your Supabase Project URL and anon key
 
-# 4. 启动开发服务器
+# 4. Start the dev server
 npm run dev
 ```
 
-访问 `http://localhost:5173`
+Open `http://localhost:5173`
 
-### 环境变量
+### Environment Variables
 
-在 [Supabase 控制台](https://app.supabase.com) → Project Settings → API 获取以下凭证：
+Get your credentials from [Supabase Dashboard](https://app.supabase.com) → Project Settings → API:
 
 ```env
 VITE_SUPABASE_URL=https://xxxxx.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...
 ```
 
-> 修改 `.env` 后需重启开发服务器，Vite 仅在启动时注入环境变量。
+> After editing `.env`, restart the dev server — Vite only injects env vars at startup.
 
 ---
 
-## 定价
+## Pricing
 
-| | 免费版 | Pro 版 | 团队版 |
-|--|:------:|:------:|:------:|
-| 价格 | ¥0 | ¥38/月 | ¥88/月 |
-| 实时比分追踪 | 5 场/月 | 无限 | 无限 |
-| 深度数据分析 | — | ✓ | ✓ |
-| 精彩集锦回放 | — | ✓ | ✓ |
-| 无广告体验 | — | ✓ | ✓ |
-| 账号数量 | 1 | 1 | 最多 10 |
-| API 数据接入 | — | — | ✓ |
+| | Free | Pro | Team |
+|--|:----:|:---:|:----:|
+| Price | ¥0 | ¥38/mo | ¥88/mo |
+| Live score tracking | 5 matches/mo | Unlimited | Unlimited |
+| Deep data analytics | — | ✓ | ✓ |
+| Highlight replays | — | ✓ | ✓ |
+| Ad-free experience | — | ✓ | ✓ |
+| Accounts | 1 | 1 | Up to 10 |
+| API data access | — | — | ✓ |
 
 ---
 
-## 项目结构
+## Project Structure
 
 ```
 tennis/
 ├── src/
 │   ├── components/
-│   │   ├── landing/     # 落地页各 Section（Hero · Features · Pricing · FAQ...）
-│   │   ├── layout/      # Header · Footer 通用布局
-│   │   ├── auth/        # Google OAuth 登录组件
-│   │   ├── effects/     # WebGL 流体背景（LiquidEther · PixelSnow）
-│   │   └── ui/          # shadcn/ui 基础组件
-│   ├── pages/           # 路由页面（LandingPage · Home · DesignSystem）
-│   ├── contexts/        # AuthContext（Supabase 会话状态）
+│   │   ├── landing/     # Landing page sections (Hero · Features · Pricing · FAQ...)
+│   │   ├── layout/      # Header · Footer
+│   │   ├── auth/        # Google OAuth login components
+│   │   ├── effects/     # WebGL backgrounds (LiquidEther · PixelSnow)
+│   │   └── ui/          # shadcn/ui base components
+│   ├── pages/           # Route pages (LandingPage · Home · DesignSystem)
+│   ├── contexts/        # AuthContext (Supabase session state)
 │   ├── lib/             # supabase.js · auth.js · motion.js · utils.js
-│   └── index.css        # 设计系统 CSS 变量（nature 主题 token）
+│   └── index.css        # Design system CSS variables (nature theme tokens)
 ├── public/
-├── .env                 # 本地凭证（不入库）
+├── .env                 # Local credentials (not committed)
 └── vite.config.js
 ```
 
 ---
 
-## 可用命令
+## Commands
 
 ```bash
-npm run dev      # 启动开发服务器（热更新）
-npm run build    # 生产构建
-npm run preview  # 本地预览生产构建
+npm run dev      # Start dev server with hot reload
+npm run build    # Production build
+npm run preview  # Preview production build locally
 ```
 
 ---
