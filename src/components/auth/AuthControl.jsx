@@ -49,7 +49,7 @@ export default function AuthControl() {
         <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => signOut()}>
           <LogOut className="size-4" />
-          退出登录
+          Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

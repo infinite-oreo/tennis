@@ -1,16 +1,16 @@
 /**
- * [INPUT]: 依赖 @/components/ui/separator，依赖 react-router-dom 的 Link
- * [OUTPUT]: 导出 Footer 布局组件，含产品/关于/法律链接和版权信息
- * [POS]: layout 层底部，被 App.jsx 全局挂载
+ * [INPUT]: depends on @/components/ui/separator, react-router-dom Link
+ * [OUTPUT]: exports Footer layout component — product/about/legal nav links + copyright
+ * [POS]: layout layer bottom bar, globally mounted by App.jsx
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { Separator } from '@/components/ui/separator'
 import { Link } from 'react-router-dom'
 
 const links = {
-  产品: ['赛事', '球员', '排名', '直播'],
-  关于: ['关于我们', '联系我们', '加入我们'],
-  法律: ['隐私政策', '使用条款'],
+  Product: ['Events', 'Players', 'Rankings', 'Live'],
+  About:   ['About Us', 'Contact', 'Careers'],
+  Legal:   ['Privacy Policy', 'Terms of Service'],
 }
 
 export default function Footer() {
@@ -21,7 +21,7 @@ export default function Footer() {
           <div>
             <p className="text-xl font-bold text-primary mb-3">Tennis</p>
             <p className="text-sm text-muted-foreground">
-              全球网球资讯与数据平台
+              Global tennis scores, stats & data.
             </p>
           </div>
           {Object.entries(links).map(([category, items]) => (
@@ -30,10 +30,7 @@ export default function Footer() {
               <ul className="space-y-2">
                 {items.map((item) => (
                   <li key={item}>
-                    <Link
-                      to="#"
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
+                    <Link to="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                       {item}
                     </Link>
                   </li>
@@ -46,9 +43,7 @@ export default function Footer() {
         <Separator className="mb-6" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
-            © 2025 Tennis. All rights reserved.
-          </p>
+          <p className="text-sm text-muted-foreground">© 2025 Tennis. All rights reserved.</p>
           <Link to="/design-system">
             <span className="text-xs text-muted-foreground hover:text-primary transition-colors">
               Design System →

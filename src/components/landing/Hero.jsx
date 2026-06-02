@@ -1,7 +1,7 @@
 /**
- * [INPUT]: 依赖 framer-motion 动效，依赖 @/components/ui/button · badge，依赖 @/lib/motion 预设，依赖 @/components/effects/LiquidEther WebGL 流体背景
- * [OUTPUT]: 导出 Hero 首屏组件，含标题/CTA/社会证明/统计面板装饰 + 流体着色器背景
- * [POS]: landing 层第一屏，视觉优先级最高，被 LandingPage.jsx 消费
+ * [INPUT]: depends on framer-motion, @/components/ui/button · badge, @/lib/motion, @/components/effects/LiquidEther
+ * [OUTPUT]: exports Hero first-screen component — headline / CTA / social-proof / stat panel + fluid shader background
+ * [POS]: landing layer first screen, highest visual priority, consumed by LandingPage.jsx
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { useState, useEffect } from 'react'
@@ -12,20 +12,18 @@ import { fadeInUp, staggerContainer, scaleIn } from '@/lib/motion'
 import { TrendingUp, Zap, Trophy } from 'lucide-react'
 import LiquidEther from '@/components/effects/LiquidEther'
 
-/* 运行时读取 CSS oklch token → THREE.Color 兼容的 hex 字符串 */
 function cssVarToHex(varName) {
-  const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-  const el = document.createElement('span');
-  el.style.color = val;
-  document.body.appendChild(el);
-  const rgb = getComputedStyle(el).color;
-  document.body.removeChild(el);
-  const nums = rgb.match(/\d+/g);
-  if (!nums) return '#3a8a44';
-  return '#' + nums.slice(0, 3).map(n => (+n).toString(16).padStart(2, '0')).join('');
+  const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim()
+  const el = document.createElement('span')
+  el.style.color = val
+  document.body.appendChild(el)
+  const rgb = getComputedStyle(el).color
+  document.body.removeChild(el)
+  const nums = rgb.match(/\d+/g)
+  if (!nums) return '#3a8a44'
+  return '#' + nums.slice(0, 3).map(n => (+n).toString(16).padStart(2, '0')).join('')
 }
 
-/* ── 装饰性统计面板 ── */
 const StatCard = ({ label, value, icon: Icon }) => (
   <motion.div
     variants={fadeInUp}
@@ -52,19 +50,17 @@ const StatCard = ({ label, value, icon: Icon }) => (
 )
 
 export default function Hero() {
-  /* 从设计系统 token 读取调色板：primary → chart-1 → accent（深→中→浅绿） */
-  const [fluidColors, setFluidColors] = useState(['#3a7a44', '#52b864', '#a8deb8']);
+  const [fluidColors, setFluidColors] = useState(['#3a7a44', '#52b864', '#a8deb8'])
   useEffect(() => {
     setFluidColors([
       cssVarToHex('--primary'),
       cssVarToHex('--chart-1'),
       cssVarToHex('--accent'),
-    ]);
-  }, []);
+    ])
+  }, [])
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-background">
-      {/* WebGL 流体背景：基于 Navier-Stokes 方程，颜色来自设计系统 token */}
       <div className="absolute inset-0 pointer-events-none">
         <LiquidEther
           colors={fluidColors}
@@ -80,7 +76,6 @@ export default function Hero() {
         />
       </div>
 
-      {/* 顶部光晕：增强文案可读性 */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -91,7 +86,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
 
-          {/* ── 左侧文案 ── */}
+          {/* Left copy */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -100,7 +95,7 @@ export default function Hero() {
           >
             <motion.div variants={fadeInUp}>
               <Badge variant="secondary" className="mb-6 text-sm px-4 py-1.5">
-                🎾 2025 大满贯赛季进行中
+                🎾 2025 Grand Slam Season — Live Now
               </Badge>
             </motion.div>
 
@@ -108,38 +103,37 @@ export default function Hero() {
               variants={fadeInUp}
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground tracking-tighter leading-[1.05] mb-6"
             >
-              追踪每一场
+              Follow Every
               <br />
-              <span style={{ color: 'var(--primary)' }}>胜负</span>
+              <span style={{ color: 'var(--primary)' }}>Rally.</span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
               className="text-lg md:text-xl text-muted-foreground max-w-lg mb-10 leading-relaxed"
             >
-              实时比分、深度数据、赛事直播 —— 让每一位球迷都成为真正的行家。
-              从大满贯到挑战赛，一站掌握全球顶级赛事动态。
+              Live scores, deep analytics, and match coverage — everything a tennis fan needs.
+              From Grand Slams to Challengers, stay on top of every court.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Button size="xl" className="px-10">免费开始</Button>
-              <Button size="xl" variant="outline" className="px-10">查看功能</Button>
+              <Button size="xl" className="px-10">Get Started Free</Button>
+              <Button size="xl" variant="outline" className="px-10">See Features</Button>
             </motion.div>
 
             <motion.p variants={fadeInUp} className="text-sm text-muted-foreground">
-              ✓ 无需信用卡 &nbsp;·&nbsp; ✓ 即刻访问 &nbsp;·&nbsp; 已有{' '}
-              <span className="font-semibold text-foreground">50,000+</span> 球迷加入
+              ✓ No credit card required &nbsp;·&nbsp; ✓ Instant access &nbsp;·&nbsp;{' '}
+              <span className="font-semibold text-foreground">50,000+</span> fans already in
             </motion.p>
           </motion.div>
 
-          {/* ── 右侧装饰面板 ── */}
+          {/* Right decorative panel */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
             className="relative hidden lg:flex flex-col gap-4"
           >
-            {/* 主卡片 */}
             <motion.div
               variants={scaleIn}
               className="rounded-3xl border border-border p-6"
@@ -150,8 +144,8 @@ export default function Hero() {
             >
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-xs text-muted-foreground">正在直播</p>
-                  <p className="text-base font-bold text-foreground">温布尔登 · 男单决赛</p>
+                  <p className="text-xs text-muted-foreground">Now Playing</p>
+                  <p className="text-base font-bold text-foreground">Wimbledon · Men's Final</p>
                 </div>
                 <Badge variant="destructive" className="animate-pulse">LIVE</Badge>
               </div>
@@ -169,7 +163,7 @@ export default function Hero() {
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-2 pt-4 border-t border-border">
-                {[['ACE', '12'], ['破发', '3'], ['双误', '4']].map(([k, v]) => (
+                {[['ACE', '12'], ['Breaks', '3'], ['Faults', '4']].map(([k, v]) => (
                   <div key={k} className="text-center">
                     <p className="text-lg font-bold text-foreground">{v}</p>
                     <p className="text-xs text-muted-foreground">{k}</p>
@@ -178,11 +172,10 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* 统计小卡片 */}
             <div className="grid grid-cols-3 gap-3">
-              <StatCard label="今日赛事" value="24" icon={Trophy} />
-              <StatCard label="实时更新" value="0.1s" icon={Zap} />
-              <StatCard label="在线球迷" value="12K" icon={TrendingUp} />
+              <StatCard label="Matches Today" value="24" icon={Trophy} />
+              <StatCard label="Live Updates" value="0.1s" icon={Zap} />
+              <StatCard label="Fans Online" value="12K" icon={TrendingUp} />
             </div>
           </motion.div>
         </div>

@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { pageTransition } from "@/lib/motion";
 import LandingPage from "@/pages/LandingPage";
 import DesignSystem from "@/pages/DesignSystem";
+import PlayersPage from "@/pages/PlayersPage";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Home from "@/pages/Home";
@@ -29,6 +30,7 @@ function InnerRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/home" element={<Page><Home /></Page>} />
+        <Route path="/players" element={<Page><PlayersPage /></Page>} />
         <Route path="/design-system" element={<Page><DesignSystem /></Page>} />
       </Routes>
     </AnimatePresence>

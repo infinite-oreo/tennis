@@ -30,13 +30,13 @@ export default function LoginDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">登录</Button>
+        <Button variant="outline" size="sm">Sign In</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-sm">
         <DialogHeader className="items-center text-center">
-          <DialogTitle className="text-xl">欢迎回到 Tennis</DialogTitle>
-          <DialogDescription>使用 Google 账号一键登录，开启你的赛事之旅</DialogDescription>
+          <DialogTitle className="text-xl">Welcome back to Tennis</DialogTitle>
+          <DialogDescription>Sign in with Google to pick up right where you left off.</DialogDescription>
         </DialogHeader>
 
         {/* FcGoogle 为 Google 官方多彩商标，品牌资产不可重染色 —— 设计系统 token 规则的合法例外 */}
@@ -48,7 +48,7 @@ export default function LoginDialog() {
           leftIcon={<FcGoogle className="!size-5" />}
           onClick={handleGoogle}
         >
-          使用 Google 继续
+          Continue with Google
         </Button>
       </DialogContent>
     </Dialog>

@@ -20,7 +20,7 @@ export default function LogoBar() {
           viewport={viewportConfig}
           className="text-center text-sm text-muted-foreground mb-8 uppercase tracking-widest"
         >
-          深受全球顶级赛事球迷信赖
+          Trusted by fans of the world's biggest tournaments
         </motion.p>
 
         <motion.div

@@ -11,9 +11,9 @@ import AuthControl from '@/components/auth/AuthControl'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
-  { label: '首页', to: '/' },
-  { label: '赛事', to: '/events' },
-  { label: '球员', to: '/players' },
+  { label: 'Home', to: '/' },
+  { label: 'Events', to: '/events' },
+  { label: 'Players', to: '/players' },
   { label: 'Design System', to: '/design-system' },
 ]
 

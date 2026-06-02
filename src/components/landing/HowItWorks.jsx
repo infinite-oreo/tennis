@@ -1,7 +1,7 @@
 /**
- * [INPUT]: 依赖 framer-motion 动效，依赖 @/components/ui/badge，依赖 @/lib/motion 预设
- * [OUTPUT]: 导出 HowItWorks 流程步骤区（3步，带连接线和顺序 reveal）
- * [POS]: landing 层使用流程说明，被 LandingPage.jsx 消费
+ * [INPUT]: depends on framer-motion, @/components/ui/badge, lucide-react, @/lib/motion
+ * [OUTPUT]: exports HowItWorks 3-step process section with connector line and staggered reveal
+ * [POS]: landing layer how-to section, consumed by LandingPage.jsx
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'
@@ -12,18 +12,18 @@ import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/motion'
 const STEPS = [
   {
     icon: UserPlus,
-    title: '注册账户',
-    desc: '30 秒完成注册，无需信用卡。立刻获得基础功能全访问权限。',
+    title: 'Create your account',
+    desc: 'Sign up in 30 seconds — no credit card needed. Instant access to all core features.',
   },
   {
     icon: Star,
-    title: '关注你的偶像',
-    desc: '从 1000+ 球员中选择关注对象，设置你感兴趣的赛事和球员。',
+    title: 'Follow your favorites',
+    desc: 'Pick from 1,000+ players and choose the tournaments you care about most.',
   },
   {
     icon: BellRing,
-    title: '实时推送到你',
-    desc: '比赛开始、关键分、比赛结束 —— 所有重要时刻第一时间通知你。',
+    title: 'Get real-time alerts',
+    desc: 'Match start, big points, final score — every key moment delivered the second it happens.',
   },
 ]
 
@@ -38,11 +38,11 @@ export default function HowItWorks() {
           viewport={viewportConfig}
           className="text-center mb-16"
         >
-          <Badge variant="secondary" className="mb-4">使用流程</Badge>
+          <Badge variant="secondary" className="mb-4">How It Works</Badge>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tighter mb-4">
-            三步，立刻开始
+            Up and running in three steps
           </h2>
-          <p className="text-lg text-muted-foreground">简单到不需要教程。</p>
+          <p className="text-lg text-muted-foreground">No tutorial required.</p>
         </motion.div>
 
         <motion.div
@@ -52,7 +52,7 @@ export default function HowItWorks() {
           viewport={viewportConfig}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 relative"
         >
-          {/* 连接虚线（仅桌面端） */}
+          {/* Desktop connector line */}
           <div className="hidden md:block absolute top-10 left-[calc(33%+1rem)] right-[calc(33%+1rem)] border-t-2 border-dashed border-border" />
 
           {STEPS.map(({ icon: Icon, title, desc }, i) => (
@@ -62,7 +62,6 @@ export default function HowItWorks() {
               transition={{ delay: i * 0.15 }}
               className="flex flex-col items-center text-center"
             >
-              {/* 步骤圆圈 */}
               <div
                 className="w-20 h-20 rounded-full flex flex-col items-center justify-center mb-6 relative z-10"
                 style={{

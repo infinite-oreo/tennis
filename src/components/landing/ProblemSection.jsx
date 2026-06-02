@@ -1,7 +1,7 @@
 /**
- * [INPUT]: 依赖 framer-motion 动效，依赖 @/components/ui/card，依赖 lucide-react 图标
- * [OUTPUT]: 导出 ProblemSection 痛点共鸣区
- * [POS]: landing 层第三屏，痛点激发，被 LandingPage.jsx 消费
+ * [INPUT]: depends on framer-motion, @/components/ui/card, lucide-react
+ * [OUTPUT]: exports ProblemSection pain-point empathy block
+ * [POS]: landing layer third screen, pain activation, consumed by LandingPage.jsx
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'
@@ -11,20 +11,20 @@ import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/motion'
 
 const PAIN_POINTS = [
   {
-    title: '赛程全靠记',
-    desc: '比赛突然开始才发现，没有提前通知，精彩开局全错过。',
+    title: 'Matches slip by unnoticed',
+    desc: "You find out a match started an hour ago — no alert, no reminder. The opening set is gone.",
   },
   {
-    title: '数据找不到',
-    desc: '球员数据散落多个平台，在十几个 App 之间切来切去，累死了。',
+    title: 'Stats are scattered everywhere',
+    desc: 'Player data lives across a dozen apps. You spend more time switching tabs than actually watching tennis.',
   },
   {
-    title: '聊天插不上嘴',
-    desc: '朋友讨论技术细节，你只知道比分，完全没法深入交流。',
+    title: "Can't keep up with the conversation",
+    desc: 'Friends dig into serve percentages and break-point conversions. You only know the scoreline.',
   },
   {
-    title: '精彩瞬间已消失',
-    desc: '关键分和高光时刻稍纵即逝，没有回放，只能靠文字描述脑补。',
+    title: 'Great moments vanish instantly',
+    desc: "Match points, tweeners, epic rallies — blink and they're gone. No replay, just a text recap.",
   },
 ]
 
@@ -40,10 +40,10 @@ export default function ProblemSection() {
           className="text-center mb-14"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tighter mb-4">
-            追球赛，还在这样？
+            Still following tennis like it's 2005?
           </h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            每一位球迷都经历过这些痛苦。是时候结束了。
+            Every serious fan has been there. It's time to fix that.
           </p>
         </motion.div>
 
@@ -58,10 +58,7 @@ export default function ProblemSection() {
             <motion.div key={title} variants={fadeInUp}>
               <Card variant="raised" className="h-full">
                 <CardContent className="pt-6 flex flex-col gap-3">
-                  <XCircle
-                    className="w-8 h-8 shrink-0"
-                    style={{ color: 'var(--destructive)' }}
-                  />
+                  <XCircle className="w-8 h-8 shrink-0" style={{ color: 'var(--destructive)' }} />
                   <h3 className="text-base font-semibold text-foreground">{title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
                 </CardContent>
