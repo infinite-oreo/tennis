@@ -1,5 +1,5 @@
 /**
- * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card · badge，依赖 lucide-react
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card · badge，依赖 lucide-react，依赖 SectionTitle
  * [OUTPUT]: 对外提供 FeaturesSection Bento 网格（6 特性，不规则布局）
  * [POS]: landing 层核心价值展示区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Zap, BarChart3, CalendarDays, Users, PlayCircle, TrendingUp } from 'lucide-react'
 import { fadeInUp, staggerContainer, scaleIn, viewportConfig } from '@/lib/motion'
+import SectionTitle from '@/components/landing/SectionTitle'
 
 const FEATURES = [
   {
@@ -76,9 +77,7 @@ export default function FeaturesSection() {
           className="text-center mb-14"
         >
           <Badge variant="secondary" className="mb-4">Features</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tighter mb-4">
-            Everything you need, in one place
-          </h2>
+          <SectionTitle>Everything you need, in one place</SectionTitle>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Live scores to deep stats, match alerts to player profiles — one platform handles it all.
           </p>

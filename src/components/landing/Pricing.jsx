@@ -1,5 +1,5 @@
 /**
- * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card · button · badge，依赖 lucide-react，依赖 @/components/subscription/UpgradeDialog，依赖 @/contexts/SubscriptionContext
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card · button · badge，依赖 lucide-react，依赖 @/components/subscription/UpgradeDialog，依赖 @/contexts/SubscriptionContext，依赖 SectionTitle
  * [OUTPUT]: 对外提供 Pricing 定价区（3 档，中间高亮，Check/X 功能对比，CTA 接入真实升级逻辑）
  * [POS]: landing 层转化区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
@@ -13,6 +13,7 @@ import { Check, X, Crown } from 'lucide-react'
 import { fadeInUp, staggerContainer, scaleIn, viewportConfig } from '@/lib/motion'
 import { useSubscription } from '@/contexts/SubscriptionContext'
 import UpgradeDialog from '@/components/subscription/UpgradeDialog'
+import SectionTitle from '@/components/landing/SectionTitle'
 
 const PLANS = [
   {
@@ -170,9 +171,7 @@ export default function Pricing() {
           className="text-center mb-14"
         >
           <Badge variant="secondary" className="mb-4">Pricing</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tighter mb-4">
-            Simple, transparent pricing
-          </h2>
+          <SectionTitle>Simple, transparent pricing</SectionTitle>
           <p className="text-lg text-muted-foreground">No hidden fees. Cancel any time.</p>
         </motion.div>
 

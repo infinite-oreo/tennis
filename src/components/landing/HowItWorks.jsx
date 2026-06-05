@@ -1,5 +1,5 @@
 /**
- * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/badge，依赖 lucide-react，依赖 @/lib/motion
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/badge，依赖 lucide-react，依赖 @/lib/motion，依赖 SectionTitle
  * [OUTPUT]: 对外提供 HowItWorks 三步流程区，含连接线与阶梯入场动效
  * [POS]: landing 层使用流程区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { UserPlus, Star, BellRing } from 'lucide-react'
 import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/motion'
+import SectionTitle from '@/components/landing/SectionTitle'
 
 const STEPS = [
   {
@@ -39,9 +40,7 @@ export default function HowItWorks() {
           className="text-center mb-16"
         >
           <Badge variant="secondary" className="mb-4">How It Works</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tighter mb-4">
-            Up and running in three steps
-          </h2>
+          <SectionTitle>Up and running in three steps</SectionTitle>
           <p className="text-lg text-muted-foreground">No tutorial required.</p>
         </motion.div>
 

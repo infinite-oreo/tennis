@@ -1,5 +1,5 @@
 /**
- * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/accordion · badge
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/accordion · badge，依赖 SectionTitle
  * [OUTPUT]: 对外提供 FAQ 常见问题区（shadcn Accordion，max-w-3xl 居中，7 条问答）
  * [POS]: landing 层异议消除区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { fadeInUp, viewportConfig } from '@/lib/motion'
+import SectionTitle from '@/components/landing/SectionTitle'
 
 const FAQS = [
   {
@@ -52,9 +53,7 @@ export default function FAQ() {
           className="text-center mb-12"
         >
           <Badge variant="secondary" className="mb-4">FAQ</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tighter mb-4">
-            Still have questions?
-          </h2>
+          <SectionTitle>Still have questions?</SectionTitle>
           <p className="text-lg text-muted-foreground">Can't find what you're looking for? We reply within 5 minutes.</p>
         </motion.div>
 

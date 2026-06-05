@@ -9,8 +9,14 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { fadeInUp, staggerContainer, scaleIn } from '@/lib/motion'
-import { TrendingUp, Zap, Trophy } from 'lucide-react'
+import { TrendingUp, Zap, Trophy, ExternalLink } from 'lucide-react'
 import LiquidEther, { useDesignTokenColors } from '@/components/effects/LiquidEther'
+
+const SLAMS = [
+  { name: 'Roland Garros', dates: 'May 25 – Jun 7, 2026',  url: 'https://www.rolandgarros.com', live: true  },
+  { name: 'Wimbledon',     dates: 'Jun 30 – Jul 13, 2026', url: 'https://www.wimbledon.com',    live: false },
+  { name: 'US Open',       dates: 'Aug 25 – Sep 7, 2026',  url: 'https://www.usopen.org',       live: false },
+]
 
 const StatCard = ({ label, value, icon: Icon }) => (
   <motion.div
@@ -124,40 +130,66 @@ export default function Hero() {
                 boxShadow: '0 16px 48px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.7)',
               }}
             >
+              {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <p className="text-xs text-muted-foreground">Now Playing</p>
-                  <p className="text-base font-bold text-foreground">Wimbledon · Men's Final</p>
+                  <p className="text-xs text-muted-foreground">Season Calendar</p>
+                  <p className="text-base font-bold text-foreground">2026 Grand Slams</p>
                 </div>
-                <Badge variant="destructive" className="animate-pulse">LIVE</Badge>
+                <Badge variant="secondary">2026 Season</Badge>
               </div>
-              <div className="flex items-center justify-between py-4 border-t border-border">
-                <div className="text-center flex-1">
-                  <p className="text-sm text-muted-foreground mb-1">Federer</p>
-                  <p className="text-4xl font-bold" style={{ color: 'var(--primary)' }}>3</p>
-                  <p className="text-xs text-muted-foreground mt-1">Sets</p>
-                </div>
-                <div className="text-xl font-bold text-muted-foreground px-4">VS</div>
-                <div className="text-center flex-1">
-                  <p className="text-sm text-muted-foreground mb-1">Djokovic</p>
-                  <p className="text-4xl font-bold text-foreground">2</p>
-                  <p className="text-xs text-muted-foreground mt-1">Sets</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-border">
-                {[['ACE', '12'], ['Breaks', '3'], ['Faults', '4']].map(([k, v]) => (
-                  <div key={k} className="text-center">
-                    <p className="text-lg font-bold text-foreground">{v}</p>
-                    <p className="text-xs text-muted-foreground">{k}</p>
-                  </div>
+
+              {/* Grand Slam list */}
+              <div className="space-y-1 py-4 border-t border-border">
+                {SLAMS.map(({ name, dates, url, live }) => (
+                  <a
+                    key={name}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between rounded-xl px-2 py-2 -mx-2 transition-colors hover:bg-accent/30 group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-2 h-2 rounded-full shrink-0"
+                        style={{
+                          background: live ? 'var(--primary)' : 'var(--border)',
+                          boxShadow: live ? '0 0 6px var(--primary)' : 'none',
+                          animation: live ? 'pulse 2s cubic-bezier(0.4,0,0.6,1) infinite' : 'none',
+                        }}
+                      />
+                      <div>
+                        <p className="text-sm font-semibold text-foreground leading-none">{name}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{dates}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {live && <Badge variant="destructive" className="text-xs py-0 px-2">Live</Badge>}
+                      <ExternalLink className="w-3 h-3 text-muted-foreground/50 group-hover:text-muted-foreground transition-colors" />
+                    </div>
+                  </a>
                 ))}
+              </div>
+
+              {/* World No. 1 footer */}
+              <div className="grid grid-cols-2 gap-3 pt-4 border-t border-border">
+                <div className="text-center">
+                  <p className="text-xs text-muted-foreground mb-1">ATP No. 1</p>
+                  <p className="text-sm font-bold text-foreground">Sinner 🇮🇹</p>
+                  <p className="text-xs text-muted-foreground">12,030 pts</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs text-muted-foreground mb-1">WTA No. 1</p>
+                  <p className="text-sm font-bold text-foreground">Sabalenka 🇧🇾</p>
+                  <p className="text-xs text-muted-foreground">11,260 pts</p>
+                </div>
               </div>
             </motion.div>
 
             <div className="grid grid-cols-3 gap-3">
-              <StatCard label="Matches Today" value="24" icon={Trophy} />
-              <StatCard label="Live Updates" value="0.1s" icon={Zap} />
-              <StatCard label="Fans Online" value="12K" icon={TrendingUp} />
+              <StatCard label="Tournaments / yr" value="200+" icon={Trophy} />
+              <StatCard label="Score Latency" value="<0.3s" icon={Zap} />
+              <StatCard label="Players Tracked" value="1,000+" icon={TrendingUp} />
             </div>
           </motion.div>
         </div>
