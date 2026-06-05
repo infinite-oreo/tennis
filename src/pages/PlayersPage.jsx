@@ -40,10 +40,10 @@ const WTA = [
   { rank: 4,  prev: 4,  name: 'Jessica Pegula',     flag: '🇺🇸', pts:  5355, age: 30 },
   { rank: 5,  prev: 5,  name: 'Elena Rybakina',     flag: '🇰🇿', pts:  4985, age: 25 },
   { rank: 6,  prev: 8,  name: 'Mirra Andreeva',     flag: '🇷🇺', pts:  4620, age: 17 },
-  { rank: 7,  prev: 7,  name: 'Qinwen Zheng',       flag: '🇨🇳', pts:  4445, age: 22 },
-  { rank: 8,  prev: 6,  name: 'Jasmine Paolini',    flag: '🇮🇹', pts:  4380, age: 28 },
-  { rank: 9,  prev: 10, name: 'Emma Navarro',       flag: '🇺🇸', pts:  3820, age: 23 },
-  { rank: 10, prev: 9,  name: 'Barbora Krejčíková', flag: '🇨🇿', pts:  3145, age: 28 },
+  { rank: 7,  prev: 8,  name: 'Jasmine Paolini',     flag: '🇮🇹', pts:  4380, age: 28 },
+  { rank: 8,  prev: 6,  name: 'Emma Navarro',        flag: '🇺🇸', pts:  3820, age: 23 },
+  { rank: 9,  prev: 9,  name: 'Barbora Krejčíková',  flag: '🇨🇿', pts:  3145, age: 28 },
+  { rank: 10, prev: 11, name: 'Daria Kasatkina',     flag: '🇷🇺', pts:  2980, age: 27 },
 ]
 
 const SPONSORSHIPS = {
@@ -123,12 +123,12 @@ const SPONSORSHIPS = {
       ],
     },
     {
-      name: 'Qinwen Zheng', flag: '🇨🇳', rank: 7, totalM: 18,
+      name: 'Jasmine Paolini', flag: '🇮🇹', rank: 7, totalM: 14,
       deals: [
-        { brand: 'Fila',          category: 'Apparel & Equipment', annualM: 6 },
-        { brand: 'Wilson',        category: 'Racket',              annualM: 3 },
-        { brand: 'Longines',      category: 'Timepiece',           annualM: 5 },
-        { brand: 'Bank of China', category: 'Finance',             annualM: 4 },
+        { brand: 'Fila',    category: 'Apparel & Equipment', annualM: 5 },
+        { brand: 'Yonex',   category: 'Racket',              annualM: 3 },
+        { brand: 'Rolex',   category: 'Timepiece',           annualM: 4 },
+        { brand: 'Lavazza', category: 'Food & Beverage',     annualM: 2 },
       ],
     },
   ],
