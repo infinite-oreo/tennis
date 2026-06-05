@@ -1,28 +1,16 @@
 /**
- * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/button · badge，依赖 @/lib/motion，依赖 @/components/effects/LiquidEther
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/button · badge，依赖 @/lib/motion，
+ *          依赖 @/components/effects/LiquidEther 的组件 + useDesignTokenColors hook
  * [OUTPUT]: 对外提供 Hero 首屏组件——标题 / CTA / 社会证明 / 数据面板 + 流体着色器背景
  * [POS]: landing 层首屏，视觉优先级最高，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
-import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { fadeInUp, staggerContainer, scaleIn } from '@/lib/motion'
 import { TrendingUp, Zap, Trophy } from 'lucide-react'
-import LiquidEther from '@/components/effects/LiquidEther'
-
-function cssVarToHex(varName) {
-  const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim()
-  const el = document.createElement('span')
-  el.style.color = val
-  document.body.appendChild(el)
-  const rgb = getComputedStyle(el).color
-  document.body.removeChild(el)
-  const nums = rgb.match(/\d+/g)
-  if (!nums) return '#3a8a44'
-  return '#' + nums.slice(0, 3).map(n => (+n).toString(16).padStart(2, '0')).join('')
-}
+import LiquidEther, { useDesignTokenColors } from '@/components/effects/LiquidEther'
 
 const StatCard = ({ label, value, icon: Icon }) => (
   <motion.div
@@ -50,14 +38,8 @@ const StatCard = ({ label, value, icon: Icon }) => (
 )
 
 export default function Hero() {
-  const [fluidColors, setFluidColors] = useState(['#3a7a44', '#52b864', '#a8deb8'])
-  useEffect(() => {
-    setFluidColors([
-      cssVarToHex('--primary'),
-      cssVarToHex('--chart-1'),
-      cssVarToHex('--accent'),
-    ])
-  }, [])
+  // 运行时从设计系统 token 提取 hex，供 WebGL 着色器使用
+  const fluidColors = useDesignTokenColors(['--primary', '--chart-1', '--accent'])
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-background">

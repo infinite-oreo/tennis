@@ -154,10 +154,11 @@ function TrendBadge({ rank, prev }) {
   return <span className="text-xs font-medium" style={{ color }}>{delta > 0 ? '+' : ''}{delta}</span>
 }
 
-const MEDAL_BG = [
-  'linear-gradient(135deg, #FFD700, #FFA000)',
-  'linear-gradient(135deg, #C0C0C0, #888)',
-  'linear-gradient(135deg, #CD7F32, #8B4513)',
+// 奖牌渐变色从设计系统 token 生成——token 定义在 index.css :root
+const MEDAL_GRADIENT = [
+  'linear-gradient(135deg, var(--medal-gold), color-mix(in srgb, var(--medal-gold) 65%, black))',
+  'linear-gradient(135deg, var(--medal-silver), color-mix(in srgb, var(--medal-silver) 65%, black))',
+  'linear-gradient(135deg, var(--medal-bronze), color-mix(in srgb, var(--medal-bronze) 65%, black))',
 ]
 
 function RankRow({ player }) {
@@ -171,7 +172,7 @@ function RankRow({ player }) {
           <div
             className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-primary-foreground"
             style={{
-              background: MEDAL_BG[player.rank - 1],
+              background: MEDAL_GRADIENT[player.rank - 1],
               boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 6px rgba(0,0,0,0.2)',
             }}
           >
