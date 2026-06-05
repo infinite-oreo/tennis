@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/card, lucide-react
- * [OUTPUT]: exports ProblemSection pain-point empathy block
- * [POS]: landing layer third screen, pain activation, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card，依赖 lucide-react
+ * [OUTPUT]: 对外提供 ProblemSection 痛点共鸣区
+ * [POS]: landing 层第三屏，痛点激活区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'

@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on @/components/ui/separator, react-router-dom Link
- * [OUTPUT]: exports Footer layout component — product/about/legal nav links + copyright
- * [POS]: layout layer bottom bar, globally mounted by App.jsx
+ * [INPUT]: 依赖 @/components/ui/separator，依赖 react-router-dom 的 Link
+ * [OUTPUT]: 对外提供 Footer 布局组件——产品/关于/法律导航链接 + 版权声明
+ * [POS]: layout 层底部导航栏，被 App.jsx 全局挂载
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { Separator } from '@/components/ui/separator'

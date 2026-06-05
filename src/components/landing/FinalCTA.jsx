@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/button
- * [OUTPUT]: exports FinalCTA bottom conversion block (brand gradient bg + dual CTAs)
- * [POS]: landing layer final conversion, immediately after FAQ, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/button
+ * [OUTPUT]: 对外提供 FinalCTA 底部召唤区（品牌渐变背景 + 双 CTA）
+ * [POS]: landing 层最终转化区，FAQ 之后，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'

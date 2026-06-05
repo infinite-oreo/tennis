@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/badge, lucide-react, @/lib/motion
- * [OUTPUT]: exports HowItWorks 3-step process section with connector line and staggered reveal
- * [POS]: landing layer how-to section, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/badge，依赖 lucide-react，依赖 @/lib/motion
+ * [OUTPUT]: 对外提供 HowItWorks 三步流程区，含连接线与阶梯入场动效
+ * [POS]: landing 层使用流程区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'

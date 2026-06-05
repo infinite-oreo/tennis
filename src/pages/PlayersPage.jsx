@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/* (tabs/card/badge), lucide-react, @/lib/motion, @/lib/utils
- * [OUTPUT]: exports PlayersPage — ATP/WTA world rankings + player endorsement deals
- * [POS]: pages layer, route "/players", consumed by App.jsx Route
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/tabs · card · badge · button，依赖 lucide-react，依赖 @/lib/motion · utils，依赖 @/contexts/SubscriptionContext，依赖 @/components/subscription/PremiumGate · UpgradeDialog，依赖 @/data/affiliates
+ * [OUTPUT]: 对外提供 PlayersPage——ATP/WTA 世界排名 + 球员签约费用数据（含 Pro 门控 + 联盟营销链接）
+ * [POS]: pages 层，路由 "/players"，被 App.jsx 的 Route 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { useState } from 'react'
@@ -9,9 +9,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { TrendingUp, TrendingDown, Minus, Trophy, DollarSign } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { TrendingUp, TrendingDown, Minus, Trophy, DollarSign, ShoppingBag, Crown } from 'lucide-react'
 import { fadeInUp, staggerContainer, scaleIn, viewportConfig, springs } from '@/lib/motion'
 import { cn } from '@/lib/utils'
+import { useSubscription } from '@/contexts/SubscriptionContext'
+import PremiumGate from '@/components/subscription/PremiumGate'
+import UpgradeDialog from '@/components/subscription/UpgradeDialog'
+import { AFFILIATE_LINKS, SHOPPABLE_CATEGORIES } from '@/data/affiliates'
 
 /* ── Data ───────────────────────────────────────────────────────── */
 
@@ -129,6 +134,10 @@ const SPONSORSHIPS = {
   ],
 }
 
+// 免费层展示数量限制
+const FREE_RANKINGS_LIMIT = 5
+const FREE_SPONSORS_LIMIT = 2
+
 /* ── Sub-components ─────────────────────────────────────────────── */
 
 function TrendIcon({ rank, prev }) {
@@ -197,6 +206,48 @@ function RankRow({ player }) {
   )
 }
 
+// 联盟营销：带购买链接的品牌行
+function DealRow({ deal }) {
+  const affiliateUrl = AFFILIATE_LINKS[deal.brand]
+  const isShoppable = SHOPPABLE_CATEGORIES.has(deal.category) && affiliateUrl
+
+  return (
+    <div
+      className="flex items-center justify-between rounded-xl px-3 py-2"
+      style={{
+        background: 'color-mix(in srgb, var(--muted) 60%, transparent)',
+        boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.06)',
+      }}
+    >
+      <div className="flex items-center gap-2 min-w-0">
+        <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--primary)' }} />
+        <span className="text-sm font-medium text-foreground">{deal.brand}</span>
+        <span className="text-xs text-muted-foreground hidden sm:inline">· {deal.category}</span>
+      </div>
+
+      <div className="flex items-center gap-2 flex-shrink-0">
+        <span className="text-xs font-semibold text-foreground">
+          ~${deal.annualM}<span className="font-normal text-muted-foreground">M/yr</span>
+        </span>
+        {isShoppable && (
+          <a
+            href={affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            title={`Shop ${deal.brand} tennis gear (affiliate link)`}
+            onClick={e => e.stopPropagation()}
+          >
+            <Button variant="outline" size="sm" className="h-6 px-2 text-[10px] gap-1 rounded-lg">
+              <ShoppingBag className="w-3 h-3" />
+              Shop
+            </Button>
+          </a>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function SponsorCard({ player }) {
   return (
     <motion.div variants={scaleIn}>
@@ -220,26 +271,12 @@ function SponsorCard({ player }) {
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-2">
-            {player.deals.map(deal => (
-              <div
-                key={deal.brand}
-                className="flex items-center justify-between rounded-xl px-3 py-2"
-                style={{
-                  background: 'color-mix(in srgb, var(--muted) 60%, transparent)',
-                  boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.06)',
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--primary)' }} />
-                  <span className="text-sm font-medium text-foreground">{deal.brand}</span>
-                  <span className="text-xs text-muted-foreground hidden sm:inline">· {deal.category}</span>
-                </div>
-                <span className="text-xs font-semibold text-foreground flex-shrink-0">
-                  ~${deal.annualM}<span className="font-normal text-muted-foreground">M/yr</span>
-                </span>
-              </div>
-            ))}
+            {player.deals.map(deal => <DealRow key={deal.brand} deal={deal} />)}
           </div>
+          {/* 联盟披露声明（合规要求） */}
+          <p className="text-[10px] text-muted-foreground mt-3 leading-relaxed">
+            * Shop links may be affiliate links. We may earn a commission at no extra cost to you.
+          </p>
         </CardContent>
       </Card>
     </motion.div>
@@ -247,8 +284,13 @@ function SponsorCard({ player }) {
 }
 
 function RankingsPanel({ players }) {
+  const { isPro } = useSubscription()
+  const visible = players.slice(0, FREE_RANKINGS_LIMIT)
+  const locked  = players.slice(FREE_RANKINGS_LIMIT)
+
   return (
     <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-1">
+      {/* 表头 */}
       <div className="flex items-center gap-3 px-4 py-2 text-xs text-muted-foreground">
         <div className="w-8 text-center">Rank</div>
         <div className="w-5" />
@@ -256,26 +298,65 @@ function RankingsPanel({ players }) {
         <div className="w-8 text-right">Chg</div>
         <div className="w-20 text-right">Points</div>
       </div>
-      {players.map(p => <RankRow key={p.name} player={p} />)}
+
+      {visible.map(p => <RankRow key={p.name} player={p} />)}
+
+      {/* 免费层：仅展示前5，其余门控 */}
+      {isPro
+        ? locked.map(p => <RankRow key={p.name} player={p} />)
+        : (
+          <PremiumGate label="See the full Top 10 rankings with Pro">
+            <div className="space-y-1">
+              {locked.map(p => <RankRow key={p.name} player={p} />)}
+            </div>
+          </PremiumGate>
+        )
+      }
     </motion.div>
   )
 }
 
 function SponsorshipsPanel({ players }) {
+  const { isPro } = useSubscription()
+  const visible = players.slice(0, FREE_SPONSORS_LIMIT)
+  const locked  = players.slice(FREE_SPONSORS_LIMIT)
+
   return (
-    <motion.div
-      variants={staggerContainer}
-      initial="hidden"
-      animate="visible"
-      className="grid grid-cols-1 lg:grid-cols-2 gap-5"
-    >
-      {players.map(p => <SponsorCard key={p.name} player={p} />)}
-    </motion.div>
+    <div className="space-y-5">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-5"
+      >
+        {visible.map(p => <SponsorCard key={p.name} player={p} />)}
+      </motion.div>
+
+      {locked.length > 0 && (
+        isPro
+          ? (
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-5"
+            >
+              {locked.map(p => <SponsorCard key={p.name} player={p} />)}
+            </motion.div>
+          )
+          : (
+            <PremiumGate label="Unlock all player endorsement deals with Pro">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                {locked.map(p => <SponsorCard key={p.name} player={p} />)}
+              </div>
+            </PremiumGate>
+          )
+      )}
+    </div>
   )
 }
 
-/* Tour switcher — plain buttons intentionally NOT connected to Radix Tabs state,
-   preventing onValueChange from clobbering the main tab selection. */
+// Tour 切换器（独立按钮组，防止 Radix Tabs onValueChange 干扰）
 function TourSwitcher({ value, onChange }) {
   return (
     <div className="inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
@@ -295,11 +376,46 @@ function TourSwitcher({ value, onChange }) {
   )
 }
 
+/* ── Pro 徽章 / 会员状态条 ──────────────────────────────────────── */
+function ProBanner({ onUpgrade }) {
+  const { isPro, plan } = useSubscription()
+  if (isPro) {
+    return (
+      <div
+        className="flex items-center gap-2 px-4 py-2 rounded-2xl mb-6 w-fit"
+        style={{ background: 'color-mix(in srgb, var(--primary) 12%, transparent)' }}
+      >
+        <Crown className="w-4 h-4" style={{ color: 'var(--primary)' }} />
+        <span className="text-sm font-semibold capitalize" style={{ color: 'var(--primary)' }}>
+          {plan} — Full access unlocked
+        </span>
+      </div>
+    )
+  }
+  return (
+    <div
+      className="flex items-center justify-between gap-4 px-4 py-3 rounded-2xl mb-6 border"
+      style={{ borderColor: 'color-mix(in srgb, var(--primary) 30%, transparent)', background: 'color-mix(in srgb, var(--primary) 6%, transparent)' }}
+    >
+      <div className="flex items-center gap-2">
+        <Crown className="w-4 h-4 text-muted-foreground" />
+        <span className="text-sm text-muted-foreground">
+          Free plan · Rankings 1–5 · 2 endorsement profiles
+        </span>
+      </div>
+      <Button size="sm" variant="outline" onClick={onUpgrade} className="shrink-0">
+        Upgrade to Pro
+      </Button>
+    </div>
+  )
+}
+
 /* ── Main Page ──────────────────────────────────────────────────── */
 
 export default function PlayersPage() {
   const [mainTab, setMainTab] = useState('rankings')
-  const [tour, setTour] = useState('atp')
+  const [tour, setTour]       = useState('atp')
+  const [upgradeOpen, setUpgradeOpen] = useState(false)
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
@@ -318,6 +434,8 @@ export default function PlayersPage() {
           Live ATP & WTA world rankings and top player endorsement deals, all in one place.
         </p>
       </motion.div>
+
+      <ProBanner onUpgrade={() => setUpgradeOpen(true)} />
 
       <motion.div
         variants={fadeInUp}
@@ -370,6 +488,8 @@ export default function PlayersPage() {
       >
         Rankings sourced from official ATP/WTA points tables (2025 season). Endorsement figures are publicly available estimates; actual contract values may differ.
       </motion.p>
+
+      <UpgradeDialog open={upgradeOpen} onOpenChange={setUpgradeOpen} />
     </div>
   )
 }

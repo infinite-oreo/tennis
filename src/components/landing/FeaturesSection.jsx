@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/card · badge, lucide-react
- * [OUTPUT]: exports FeaturesSection Bento grid (6 features, irregular layout)
- * [POS]: landing layer core value display, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card · badge，依赖 lucide-react
+ * [OUTPUT]: 对外提供 FeaturesSection Bento 网格（6 特性，不规则布局）
+ * [POS]: landing 层核心价值展示区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'

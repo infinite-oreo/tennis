@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/card · avatar · badge
- * [OUTPUT]: exports Testimonials user-review section (3-column grid, decorative quotes and star ratings)
- * [POS]: landing layer social proof, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card · avatar · badge
+ * [OUTPUT]: 对外提供 Testimonials 用户评价区（3 列网格，引号装饰 + 星级评分）
+ * [POS]: landing 层社会证明区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'

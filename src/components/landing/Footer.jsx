@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on react-router-dom Link, @/components/ui/separator, lucide-react social icons
- * [OUTPUT]: exports LandingFooter — landing-page-specific footer (4-col nav + copyright + social links)
- * [POS]: landing layer footer, sibling of layout/Footer, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 react-router-dom 的 Link，依赖 @/components/ui/separator，依赖 lucide-react 社媒图标
+ * [OUTPUT]: 对外提供 LandingFooter——落地页专属底部（4 列导航 + 版权声明 + 社媒链接）
+ * [POS]: landing 层底部，与 layout/Footer 并列存在，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { Link } from 'react-router-dom'

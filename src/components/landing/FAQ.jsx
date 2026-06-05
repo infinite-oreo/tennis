@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/accordion · badge
- * [OUTPUT]: exports FAQ section (shadcn Accordion, max-w-3xl centered, 7 items)
- * [POS]: landing layer objection removal, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/accordion · badge
+ * [OUTPUT]: 对外提供 FAQ 常见问题区（shadcn Accordion，max-w-3xl 居中，7 条问答）
+ * [POS]: landing 层异议消除区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'

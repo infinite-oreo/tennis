@@ -1,7 +1,7 @@
 /**
- * [INPUT]: depends on framer-motion, @/components/ui/button · badge, @/lib/motion, @/components/effects/LiquidEther
- * [OUTPUT]: exports Hero first-screen component — headline / CTA / social-proof / stat panel + fluid shader background
- * [POS]: landing layer first screen, highest visual priority, consumed by LandingPage.jsx
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/button · badge，依赖 @/lib/motion，依赖 @/components/effects/LiquidEther
+ * [OUTPUT]: 对外提供 Hero 首屏组件——标题 / CTA / 社会证明 / 数据面板 + 流体着色器背景
+ * [POS]: landing 层首屏，视觉优先级最高，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { useState, useEffect } from 'react'
