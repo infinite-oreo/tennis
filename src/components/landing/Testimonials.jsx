@@ -1,12 +1,12 @@
 /**
  * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/card · avatar · badge，依赖 SectionTitle
- * [OUTPUT]: 对外提供 Testimonials 用户评价区（3 列网格，引号装饰 + 星级评分）
+ * [OUTPUT]: 对外提供 Testimonials 用户评价区（3 列网格，真人头像 + 时间戳 + 4-5 星评分）
  * [POS]: landing 层社会证明区，被 LandingPage.jsx 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
 import { motion } from 'framer-motion'
 import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Star } from 'lucide-react'
 import { fadeInUp, staggerContainer, viewportConfig } from '@/lib/motion'
@@ -14,35 +14,47 @@ import SectionTitle from '@/components/landing/SectionTitle'
 
 const TESTIMONIALS = [
   {
-    quote: "Finally — I don't have to juggle ten different apps anymore. Live scores, player stats, and the full schedule all in one spot. It's a game-changer.",
+    quote: "Finally ditched my three-app setup. Live scores load instantly, the push alerts hit right at match point, and the ATP draw is actually readable. Deleted ESPN and FlashScore.",
     author: 'Michael Thompson',
-    role: 'Die-Hard Tennis Fan',
-    company: 'Chicago, IL',
-    initials: 'MT',
+    role: 'Die-Hard Tennis Fan · Chicago, IL',
+    rating: 5,
+    date: '3 days ago',
+    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
   },
   {
-    quote: "I never miss a Sinner match now. The push alerts are spot-on for every key point, and the analytics have completely changed how I watch the game.",
+    quote: "I coach at a club and use the serve-speed breakdowns every week. My players can finally SEE why their second serve gets attacked. Worth every penny of the Pro plan.",
     author: 'Sophie Müller',
-    role: 'Tennis Coach',
-    company: 'Hamburg Tennis Club',
-    initials: 'SM',
+    role: 'Head Coach · Hamburg Tennis Club',
+    rating: 4,
+    date: '1 week ago',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
   },
   {
-    quote: 'The data analysis blew me away. Serve speed, break-point rates, all visualized beautifully. As a coach, it gives me an edge when scouting opponents.',
+    quote: "Best tennis app I've used. The opponent scouting tool alone saved me two matches at my last ITF. Break-point rates, return depth charts — it's all here.",
     author: 'Diego Martínez',
-    role: 'Amateur Player',
-    company: 'Barcelona, Spain',
-    initials: 'DM',
+    role: 'Amateur Player · Barcelona, Spain',
+    rating: 5,
+    date: 'Mar 2025',
+    avatar: 'https://randomuser.me/api/portraits/men/68.jpg',
   },
 ]
 
-const Stars = () => (
-  <div className="flex gap-0.5 mb-4">
-    {Array.from({ length: 5 }).map((_, i) => (
-      <Star key={i} className="w-4 h-4 fill-current" style={{ color: 'var(--accent)' }} />
-    ))}
-  </div>
-)
+function Stars({ count }) {
+  return (
+    <div className="flex gap-0.5">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          className="w-3.5 h-3.5"
+          style={{
+            fill: i < count ? 'var(--primary)' : 'transparent',
+            color: i < count ? 'var(--primary)' : 'var(--muted-foreground)',
+          }}
+        />
+      ))}
+    </div>
+  )
+}
 
 export default function Testimonials() {
   return (
@@ -67,27 +79,34 @@ export default function Testimonials() {
           viewport={viewportConfig}
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          {TESTIMONIALS.map(({ quote, author, role, company, initials }) => (
+          {TESTIMONIALS.map(({ quote, author, role, rating, date, avatar }) => (
             <motion.div key={author} variants={fadeInUp}>
               <Card variant="raised" className="h-full">
-                <CardContent className="pt-6 flex flex-col gap-4">
-                  <Stars />
-                  <div
-                    className="text-6xl font-serif leading-none -mb-4 -mt-2"
-                    style={{ color: 'var(--primary)', opacity: 0.3 }}
-                  >
-                    "
+                <CardContent className="pt-5 flex flex-col gap-3">
+
+                  {/* 星级 + 时间戳 */}
+                  <div className="flex items-center justify-between">
+                    <Stars count={rating} />
+                    <span className="text-xs text-muted-foreground">{date}</span>
                   </div>
-                  <p className="text-sm leading-relaxed text-foreground flex-1">{quote}</p>
-                  <div className="flex items-center gap-3 pt-2 border-t border-border">
-                    <Avatar className="w-10 h-10">
-                      <AvatarFallback className="text-xs font-bold">{initials}</AvatarFallback>
+
+                  {/* 评论正文 */}
+                  <p className="text-sm leading-relaxed text-foreground flex-1">"{quote}"</p>
+
+                  {/* 用户信息 */}
+                  <div className="flex items-center gap-3 pt-3 border-t border-border">
+                    <Avatar className="w-10 h-10 shrink-0">
+                      <AvatarImage src={avatar} alt={author} />
+                      <AvatarFallback className="text-xs font-bold">
+                        {author.split(' ').map(w => w[0]).join('')}
+                      </AvatarFallback>
                     </Avatar>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{author}</p>
-                      <p className="text-xs text-muted-foreground">{role} · {company}</p>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-foreground leading-tight">{author}</p>
+                      <p className="text-xs text-muted-foreground truncate">{role}</p>
                     </div>
                   </div>
+
                 </CardContent>
               </Card>
             </motion.div>

@@ -19,6 +19,18 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 
+// 网络失败时的文字 emoji 兜底列表（tennis 主题）
+const FALLBACK_EMOJIS = ['🎾', '🏆', '⭐', '🌟', '🦁', '🦊', '🌈', '🚀', '💎', '🎯', '🔥', '🍀']
+
+// 用 user.id 做确定性 hash，同一用户永远得到同一个 emoji
+function seedIndex(str, len) {
+  return [...str].reduce((acc, c) => (acc * 31 + c.charCodeAt(0)) >>> 0, 0) % len
+}
+
+function getDicebearUrl(userId) {
+  return `https://api.dicebear.com/9.x/rings/svg?seed=${encodeURIComponent(userId)}&size=40`
+}
+
 export default function AuthControl() {
   const { user, loading } = useAuth()
 
@@ -29,17 +41,21 @@ export default function AuthControl() {
   if (!user) return <LoginDialog />
 
   // 已登录：头像 + 登出菜单。身份字段一律取自 user_metadata
-  const { avatar_url, full_name, name } = user.user_metadata ?? {}
+  const { full_name, name } = user.user_metadata ?? {}
   const display = full_name || name || user.email
-  const initial = (display ?? '?').charAt(0).toUpperCase()
+
+  // 所有用户统一走 DiceBear 生成器，Google 头像不再使用
+  const avatarSrc = getDicebearUrl(user.id)
+  // DiceBear 加载失败时展示 emoji 字符兜底
+  const emojiFallback = FALLBACK_EMOJIS[seedIndex(user.id, FALLBACK_EMOJIS.length)]
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full">
           <Avatar className="size-9">
-            <AvatarImage src={avatar_url} alt={display} />
-            <AvatarFallback>{initial}</AvatarFallback>
+            <AvatarImage src={avatarSrc} alt={display} />
+            <AvatarFallback>{emojiFallback}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
