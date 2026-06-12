@@ -14,11 +14,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // 当下：开局问一次"现在谁在线"
-    supabase.auth.getSession().then(({ data }) => {
-      setUser(data.session?.user ?? null)
-      setLoading(false)
-    })
+    // 当下：开局问一次"现在谁在线"；catch 防止 PKCE code 被 StrictMode 第一次 effect 消耗后第二次静默 reject
+    supabase.auth.getSession()
+      .then(({ data }) => { setUser(data.session?.user ?? null) })
+      .catch(() => {})
+      .finally(() => { setLoading(false) })
 
     // 未来：订阅广播，登入/登出/刷新自动流回
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
