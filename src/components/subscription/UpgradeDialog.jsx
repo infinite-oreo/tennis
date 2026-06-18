@@ -4,7 +4,7 @@
  * [POS]: subscription 层的升级入口 UI，被 PremiumGate 和 Pricing.jsx 的 CTA 按钮触发
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -43,11 +43,14 @@ const PLANS = [
   },
 ]
 
-export default function UpgradeDialog({ open, onOpenChange }) {
+export default function UpgradeDialog({ open, onOpenChange, initialPlan = 'pro' }) {
   const { user } = useAuth()
   const { upgrade, loading, isPro } = useSubscription()
-  const [selected, setSelected] = useState('pro')
+  const [selected, setSelected] = useState(initialPlan)
   const [success, setSuccess] = useState(false)
+
+  // 每次弹窗打开时同步调用方传入的初始计划
+  useEffect(() => { if (open) setSelected(initialPlan) }, [open, initialPlan])
 
   async function handleUpgrade() {
     const { error } = await upgrade(selected)

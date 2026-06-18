@@ -158,7 +158,7 @@ function PlanCard({ plan, onUpgradeClick }) {
 }
 
 export default function Pricing() {
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const [upgradePlan, setUpgradePlan] = useState(null)
 
   return (
     <section className="py-20 md:py-28" style={{ background: 'var(--muted)' }}>
@@ -183,12 +183,12 @@ export default function Pricing() {
           className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center"
         >
           {PLANS.map(plan => (
-            <PlanCard key={plan.id} plan={plan} onUpgradeClick={() => setDialogOpen(true)} />
+            <PlanCard key={plan.id} plan={plan} onUpgradeClick={id => setUpgradePlan(id)} />
           ))}
         </motion.div>
       </div>
 
-      <UpgradeDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+      <UpgradeDialog open={upgradePlan != null} onOpenChange={open => !open && setUpgradePlan(null)} initialPlan={upgradePlan ?? 'pro'} />
     </section>
   )
 }
