@@ -22,6 +22,10 @@ CLAUDE.md
 **/CLAUDE.md
 .claude/
 
+# Codex 配置（私有，不入库）
+AGENTS.md
+**/AGENTS.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
