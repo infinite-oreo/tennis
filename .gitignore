@@ -37,3 +37,8 @@ AGENTS.md
 *.njsproj
 *.sln
 *.sw?
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
