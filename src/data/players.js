@@ -6,29 +6,29 @@
  */
 
 export const ATP = [
-  { rank: 1,  prev: 1,  name: 'Jannik Sinner',    flag: '🇮🇹', pts: 12030, age: 22 },
-  { rank: 2,  prev: 2,  name: 'Carlos Alcaraz',   flag: '🇪🇸', pts: 10720, age: 21 },
-  { rank: 3,  prev: 3,  name: 'Alexander Zverev', flag: '🇩🇪', pts:  8545, age: 27 },
-  { rank: 4,  prev: 5,  name: 'Novak Djokovic',   flag: '🇷🇸', pts:  7650, age: 37 },
-  { rank: 5,  prev: 4,  name: 'Daniil Medvedev',  flag: '🇷🇺', pts:  6400, age: 28 },
-  { rank: 6,  prev: 7,  name: 'Andrey Rublev',    flag: '🇷🇺', pts:  4875, age: 26 },
-  { rank: 7,  prev: 6,  name: 'Casper Ruud',      flag: '🇳🇴', pts:  4220, age: 25 },
-  { rank: 8,  prev: 8,  name: 'Hubert Hurkacz',   flag: '🇵🇱', pts:  4015, age: 27 },
-  { rank: 9,  prev: 9,  name: 'Taylor Fritz',     flag: '🇺🇸', pts:  3955, age: 26 },
-  { rank: 10, prev: 12, name: 'Grigor Dimitrov',  flag: '🇧🇬', pts:  3600, age: 33 },
+  { rank: 1,  prev: 1,  name: 'Jannik Sinner',            flag: '🇮🇹', pts: 13450, age: 24 },
+  { rank: 2,  prev: 2,  name: 'Alexander Zverev',         flag: '🇩🇪', pts:  8480, age: 29 },
+  { rank: 3,  prev: 3,  name: 'Carlos Alcaraz',           flag: '🇪🇸', pts:  8160, age: 23 },
+  { rank: 4,  prev: 4,  name: 'Felix Auger-Aliassime',    flag: '🇨🇦', pts:  4740, age: 25 },
+  { rank: 5,  prev: 5,  name: 'Alex de Minaur',           flag: '🇦🇺', pts:  4110, age: 27 },
+  { rank: 6,  prev: 6,  name: 'Ben Shelton',              flag: '🇺🇸', pts:  3770, age: 23 },
+  { rank: 7,  prev: 7,  name: 'Novak Djokovic',           flag: '🇷🇸', pts:  3760, age: 39 },
+  { rank: 8,  prev: 8,  name: 'Daniil Medvedev',          flag: '🇷🇺', pts:  3670, age: 30 },
+  { rank: 9,  prev: 9,  name: 'Flavio Cobolli',           flag: '🇮🇹', pts:  3460, age: 23 },
+  { rank: 10, prev: 10, name: 'Taylor Fritz',             flag: '🇺🇸', pts:  3365, age: 28 },
 ]
 
 export const WTA = [
-  { rank: 1,  prev: 2,  name: 'Aryna Sabalenka',  flag: '🇧🇾', pts: 11260, age: 26 },
-  { rank: 2,  prev: 1,  name: 'Iga Świątek',       flag: '🇵🇱', pts: 10785, age: 23 },
-  { rank: 3,  prev: 3,  name: 'Coco Gauff',        flag: '🇺🇸', pts:  7400, age: 20 },
-  { rank: 4,  prev: 4,  name: 'Jessica Pegula',    flag: '🇺🇸', pts:  5355, age: 30 },
-  { rank: 5,  prev: 5,  name: 'Elena Rybakina',    flag: '🇰🇿', pts:  4985, age: 25 },
-  { rank: 6,  prev: 8,  name: 'Mirra Andreeva',    flag: '🇷🇺', pts:  4620, age: 17 },
-  { rank: 7,  prev: 8,  name: 'Jasmine Paolini',   flag: '🇮🇹', pts:  4380, age: 28 },
-  { rank: 8,  prev: 6,  name: 'Emma Navarro',      flag: '🇺🇸', pts:  3820, age: 23 },
-  { rank: 9,  prev: 9,  name: 'Barbora Krejčíková',flag: '🇨🇿', pts:  3145, age: 28 },
-  { rank: 10, prev: 11, name: 'Daria Kasatkina',   flag: '🇷🇺', pts:  2980, age: 27 },
+  { rank: 1,  prev: 1,  name: 'Aryna Sabalenka',   flag: '🇧🇾', pts: 8550, age: 28 },
+  { rank: 2,  prev: 2,  name: 'Elena Rybakina',    flag: '🇰🇿', pts: 8143, age: 27 },
+  { rank: 3,  prev: 3,  name: 'Jessica Pegula',    flag: '🇺🇸', pts: 6301, age: 32 },
+  { rank: 4,  prev: 4,  name: 'Coco Gauff',        flag: '🇺🇸', pts: 5649, age: 22 },
+  { rank: 5,  prev: 5,  name: 'Mirra Andreeva',    flag: '🇷🇺', pts: 5293, age: 19 },
+  { rank: 6,  prev: 6,  name: 'Karolína Muchová',  flag: '🇨🇿', pts: 5168, age: 29 },
+  { rank: 7,  prev: 7,  name: 'Linda Nosková',     flag: '🇨🇿', pts: 5119, age: 21 },
+  { rank: 8,  prev: 8,  name: 'Iga Świątek',       flag: '🇵🇱', pts: 4539, age: 25 },
+  { rank: 9,  prev: 9,  name: 'Amanda Anisimova',  flag: '🇺🇸', pts: 4353, age: 24 },
+  { rank: 10, prev: 10, name: 'Elina Svitolina',   flag: '🇺🇦', pts: 4351, age: 31 },
 ]
 
 export const SPONSORSHIPS = {
@@ -44,7 +44,16 @@ export const SPONSORSHIPS = {
       ],
     },
     {
-      name: 'Carlos Alcaraz', flag: '🇪🇸', rank: 2, totalM: 48,
+      name: 'Alexander Zverev', flag: '🇩🇪', rank: 2, totalM: 26,
+      deals: [
+        { brand: 'Adidas',  category: 'Apparel & Equipment', annualM: 8 },
+        { brand: 'Head',    category: 'Racket',              annualM: 4 },
+        { brand: 'Rolex',   category: 'Timepiece',           annualM: 8 },
+        { brand: 'Porsche', category: 'Automotive',          annualM: 6 },
+      ],
+    },
+    {
+      name: 'Carlos Alcaraz', flag: '🇪🇸', rank: 3, totalM: 48,
       deals: [
         { brand: 'Nike',          category: 'Apparel & Equipment', annualM: 15 },
         { brand: 'Babolat',       category: 'Racket',              annualM: 3  },
@@ -55,7 +64,7 @@ export const SPONSORSHIPS = {
       ],
     },
     {
-      name: 'Novak Djokovic', flag: '🇷🇸', rank: 4, totalM: 32,
+      name: 'Novak Djokovic', flag: '🇷🇸', rank: 7, totalM: 32,
       deals: [
         { brand: 'Lacoste',  category: 'Apparel & Equipment', annualM: 8 },
         { brand: 'Head',     category: 'Racket',              annualM: 5 },
@@ -63,15 +72,6 @@ export const SPONSORSHIPS = {
         { brand: 'Peugeot',  category: 'Automotive',          annualM: 5 },
         { brand: 'ANZ',      category: 'Finance',             annualM: 4 },
         { brand: 'QuantumX', category: 'Nutrition',           annualM: 3 },
-      ],
-    },
-    {
-      name: 'Alexander Zverev', flag: '🇩🇪', rank: 3, totalM: 26,
-      deals: [
-        { brand: 'Adidas',  category: 'Apparel & Equipment', annualM: 8 },
-        { brand: 'Head',    category: 'Racket',              annualM: 4 },
-        { brand: 'Rolex',   category: 'Timepiece',           annualM: 8 },
-        { brand: 'Porsche', category: 'Automotive',          annualM: 6 },
       ],
     },
   ],
@@ -87,18 +87,16 @@ export const SPONSORSHIPS = {
       ],
     },
     {
-      name: 'Iga Świątek', flag: '🇵🇱', rank: 2, totalM: 28,
+      name: 'Elena Rybakina', flag: '🇰🇿', rank: 2, totalM: 20,
       deals: [
-        { brand: 'Nike',       category: 'Apparel & Equipment', annualM: 7 },
-        { brand: 'Tecnifibre', category: 'Racket',              annualM: 4 },
-        { brand: 'Rolex',      category: 'Timepiece',           annualM: 8 },
-        { brand: 'Porsche',    category: 'Automotive',          annualM: 1 },
-        { brand: 'ON Running', category: 'Training Footwear',   annualM: 5 },
-        { brand: 'Infosys',    category: 'Technology',          annualM: 3 },
+        { brand: 'Yonex',   category: 'Apparel & Equipment', annualM: 8 },
+        { brand: 'Red Bull',category: 'Beverage',            annualM: 4 },
+        { brand: 'Porsche', category: 'Automotive',          annualM: 5 },
+        { brand: 'Bank RBK',category: 'Finance',             annualM: 3 },
       ],
     },
     {
-      name: 'Coco Gauff', flag: '🇺🇸', rank: 3, totalM: 29,
+      name: 'Coco Gauff', flag: '🇺🇸', rank: 4, totalM: 29,
       deals: [
         { brand: 'New Balance', category: 'Apparel & Equipment', annualM: 10 },
         { brand: 'Head',        category: 'Racket',              annualM: 4  },
@@ -108,12 +106,14 @@ export const SPONSORSHIPS = {
       ],
     },
     {
-      name: 'Jasmine Paolini', flag: '🇮🇹', rank: 7, totalM: 14,
+      name: 'Iga Świątek', flag: '🇵🇱', rank: 8, totalM: 28,
       deals: [
-        { brand: 'Fila',    category: 'Apparel & Equipment', annualM: 5 },
-        { brand: 'Yonex',   category: 'Racket',              annualM: 3 },
-        { brand: 'Rolex',   category: 'Timepiece',           annualM: 4 },
-        { brand: 'Lavazza', category: 'Food & Beverage',     annualM: 2 },
+        { brand: 'Nike',       category: 'Apparel & Equipment', annualM: 7 },
+        { brand: 'Tecnifibre', category: 'Racket',              annualM: 4 },
+        { brand: 'Rolex',      category: 'Timepiece',           annualM: 8 },
+        { brand: 'Porsche',    category: 'Automotive',          annualM: 1 },
+        { brand: 'ON Running', category: 'Training Footwear',   annualM: 5 },
+        { brand: 'Infosys',    category: 'Technology',          annualM: 3 },
       ],
     },
   ],

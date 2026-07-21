@@ -22,14 +22,14 @@
 // ─── 品牌联盟链接（已验证可达的官方落地页）───────────────────────────────────
 export const AFFILIATE_LINKS = {
   'Nike':        'https://www.nike.com/w/tennis',
-  'Wilson':      'https://www.wilson.com/en-us/sport/tennis',
-  'Babolat':     'https://www.babolat.com/en/sport/tennis',
+  'Wilson':      'https://www.wilson.com/en-us/tennis',
+  'Babolat':     'https://www.babolat.com/us/tennis.html',
   'Head':        'https://www.head.com/en/sports/tennis',
   'Adidas':      'https://www.adidas.com/us/tennis',
-  'New Balance': 'https://www.newbalance.com/c/tennis/',
+  'New Balance': 'https://www.newbalance.com/tennis/',
   'Tecnifibre':  'https://www.tecnifibre.com/en',
-  'Lacoste':     'https://www.lacoste.com/us/tennis/',
-  'Fila':        'https://www.fila.com/en-us/',
+  'Lacoste':     'https://www.lacoste.com/us/lacoste/discover/sport-collections/tennis/',
+  'Fila':        'https://www.fila.de/en/Tennis/',
   'ON Running':  'https://www.on.com/en-us/',
   'Yonex':       'https://www.yonex.com/tennis',
 }
