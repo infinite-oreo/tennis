@@ -21,13 +21,14 @@ jobs:
             exit 1
           fi
 
+          # 只要请求打到了 Supabase 网关（无论 2xx/4xx）就算作项目活跃，
+          # 因此不对 HTTP 状态码做失败判断，只打印出来供人工核对。
           echo "→ 请求 Auth health endpoint"
           curl -sS -o /dev/null -w "auth/v1/health: HTTP %{http_code}\n" \
-            --fail-with-body \
+            -H "apikey: $SUPABASE_ANON_KEY" \
             "$SUPABASE_URL/auth/v1/health"
 
           echo "→ 请求 REST 网关（PostgREST 根路由）"
           curl -sS -o /dev/null -w "rest/v1: HTTP %{http_code}\n" \
-            --fail-with-body \
             -H "apikey: $SUPABASE_ANON_KEY" \
             "$SUPABASE_URL/rest/v1/"
