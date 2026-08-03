@@ -31,7 +31,7 @@ const CARD_STYLES = {
 }
 
 const cardVariants = cva(
-  "rounded-[20px] border text-card-foreground transition-all duration-200",
+  "rounded-2xl border text-card-foreground transition-all duration-200",
   {
     variants: {
       variant: {
