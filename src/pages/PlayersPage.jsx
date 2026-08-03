@@ -1,6 +1,7 @@
 /**
- * [INPUT]: 依赖 @/components/players/*，依赖 @/data/players，依赖 framer-motion，依赖 @/components/ui/*，依赖 @/lib/motion，依赖 @/components/subscription/UpgradeDialog
- * [OUTPUT]: 对外提供 PlayersPage——ATP/WTA 排名 + 签约费用（含门控 + 联盟营销）
+ * [INPUT]: 依赖 @/components/players/*、@/components/players/wealth/WealthPanel，依赖 @/data/players，依赖 framer-motion，
+ *          依赖 @/components/ui/*，依赖 @/lib/motion，依赖 @/components/subscription/UpgradeDialog
+ * [OUTPUT]: 对外提供 PlayersPage——ATP/WTA 排名 + 签约费用 + Big 3 财富配置（均含门控 + 联盟营销/Pro）
  * [POS]: pages 层，路由 "/players"，被 App.jsx 的 Route 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
@@ -9,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Trophy, DollarSign } from 'lucide-react'
+import { Trophy, DollarSign, Landmark } from 'lucide-react'
 import { fadeInUp, viewportConfig, springs } from '@/lib/motion'
 import { ATP, WTA, SPONSORSHIPS } from '@/data/players'
 import UpgradeDialog from '@/components/subscription/UpgradeDialog'
@@ -17,6 +18,7 @@ import ProBanner from '@/components/players/ProBanner'
 import TourSwitcher from '@/components/players/TourSwitcher'
 import RankingsPanel from '@/components/players/RankingsPanel'
 import SponsorshipsPanel from '@/components/players/SponsorshipsPanel'
+import WealthPanel from '@/components/players/wealth/WealthPanel'
 
 export default function PlayersPage() {
   const [mainTab, setMainTab] = useState('rankings')
@@ -47,14 +49,17 @@ export default function PlayersPage() {
               <TabsTrigger value="sponsorships" className="gap-2">
                 <DollarSign className="w-4 h-4" />Endorsements
               </TabsTrigger>
+              <TabsTrigger value="wealth" className="gap-2">
+                <Landmark className="w-4 h-4" />Wealth
+              </TabsTrigger>
             </TabsList>
-            <TourSwitcher value={tour} onChange={setTour} />
+            {mainTab !== 'wealth' && <TourSwitcher value={tour} onChange={setTour} />}
           </div>
 
           <Card variant="inset" className="p-2 sm:p-4">
             <AnimatePresence mode="wait">
               <motion.div
-                key={`${mainTab}-${tour}`}
+                key={mainTab === 'wealth' ? 'wealth' : `${mainTab}-${tour}`}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0, transition: springs.gentle }}
                 exit={{ opacity: 0, y: -8, transition: { duration: 0.15 } }}
@@ -65,6 +70,9 @@ export default function PlayersPage() {
                 <TabsContent value="sponsorships">
                   <SponsorshipsPanel players={SPONSORSHIPS[tour]} />
                 </TabsContent>
+                <TabsContent value="wealth">
+                  <WealthPanel />
+                </TabsContent>
               </motion.div>
             </AnimatePresence>
           </Card>
@@ -74,7 +82,7 @@ export default function PlayersPage() {
       <motion.p variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
         className="text-xs text-muted-foreground text-center mt-6"
       >
-        Rankings sourced from official ATP/WTA points tables (2025 season). Endorsement figures are publicly available estimates; actual contract values may differ.
+        Rankings sourced from official ATP/WTA points tables (2025 season). Endorsement and wealth figures are publicly available estimates for illustrative purposes; actual net worth and contract values may differ.
       </motion.p>
 
       <UpgradeDialog open={upgradeOpen} onOpenChange={setUpgradeOpen} />
