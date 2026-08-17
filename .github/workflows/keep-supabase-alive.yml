@@ -21,14 +21,19 @@ jobs:
             exit 1
           fi
 
-          # 只要请求打到了 Supabase 网关（无论 2xx/4xx）就算作项目活跃，
-          # 因此不对 HTTP 状态码做失败判断，只打印出来供人工核对。
-          echo "→ 请求 Auth health endpoint"
-          curl -sS -o /dev/null -w "auth/v1/health: HTTP %{http_code}\n" \
+          # Auth health / REST 根路由都不会触达 Postgres（前者是网关健康探针，
+          # 后者缺少 Authorization 头会在 Kong 网关层被拒绝），Supabase 不会将其计入
+          # 项目活跃度，之前用这两个端点保活因此持续失效。
+          # 改为查询 _keepalive 表：带 apikey + Authorization 双头，真正落到数据库，
+          # 且严格校验 HTTP 200，避免"看似成功实则无效"的请求被静默放过。
+          echo "→ 查询 _keepalive 表（真实触达 Postgres）"
+          http_code=$(curl -sS -o /dev/null -w "%{http_code}" \
             -H "apikey: $SUPABASE_ANON_KEY" \
-            "$SUPABASE_URL/auth/v1/health"
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            "$SUPABASE_URL/rest/v1/_keepalive?select=id&limit=1")
 
-          echo "→ 请求 REST 网关（PostgREST 根路由）"
-          curl -sS -o /dev/null -w "rest/v1: HTTP %{http_code}\n" \
-            -H "apikey: $SUPABASE_ANON_KEY" \
-            "$SUPABASE_URL/rest/v1/"
+          echo "rest/v1/_keepalive: HTTP $http_code"
+          if [ "$http_code" != "200" ]; then
+            echo "::error::保活查询未成功触达数据库（HTTP $http_code），请检查 Secrets 或 _keepalive 表/RLS 策略"
+            exit 1
+          fi
