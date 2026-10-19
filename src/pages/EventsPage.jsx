@@ -1,5 +1,5 @@
 /**
- * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/badge · card · tabs · button，依赖 @/lib/motion
+ * [INPUT]: 依赖 framer-motion，依赖 @/components/ui/badge · card · tabs · button，依赖 @/lib/motion，依赖 @/lib/eventStatus
  * [OUTPUT]: 导出 EventsPage——2026 赛季全日历（大满贯 + ATP/WTA 大师赛 + 年终赛）
  * [POS]: pages 层，路由 "/events"，被 App.jsx 的 Route 消费
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
@@ -12,6 +12,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { MapPin, Calendar, Trophy, ExternalLink, Zap } from 'lucide-react'
 import { fadeInUp, staggerContainer, scaleIn, viewportConfig } from '@/lib/motion'
+import { withStatus } from '@/lib/eventStatus'
 
 // ── 球场材质 token 映射 ────────────────────────────────────────────────────────
 const SURFACE_STYLE = {
@@ -28,7 +29,6 @@ const GRAND_SLAMS = [
     location: 'Melbourne Park, Australia',
     surface: 'Hard',
     prize: 'AUD $96.5M',
-    status: 'completed',
     atpWinner: 'Jannik Sinner',
     wtaWinner: 'Aryna Sabalenka',
     url: 'https://www.ausopen.com',
@@ -40,7 +40,6 @@ const GRAND_SLAMS = [
     location: 'Stade Roland Garros, Paris',
     surface: 'Clay',
     prize: '€56.8M',
-    status: 'live',
     url: 'https://www.rolandgarros.com',
     draws: { singles: 128, doubles: 64 },
   },
@@ -50,7 +49,6 @@ const GRAND_SLAMS = [
     location: 'All England Club, London',
     surface: 'Grass',
     prize: '£50M',
-    status: 'upcoming',
     url: 'https://www.wimbledon.com',
     draws: { singles: 128, doubles: 64 },
   },
@@ -60,38 +58,37 @@ const GRAND_SLAMS = [
     location: 'USTA Billie Jean King NTC, New York',
     surface: 'Hard',
     prize: '$65M',
-    status: 'upcoming',
     url: 'https://www.usopen.org',
     draws: { singles: 128, doubles: 64 },
   },
 ]
 
 const ATP_MASTERS = [
-  { name: 'BNP Paribas Open', location: 'Indian Wells, CA', dates: 'Mar 4–16', surface: 'Hard',  prize: '$9.6M',  status: 'completed', url: 'https://www.bnpparibasopen.com' },
-  { name: 'Miami Open',        location: 'Miami, FL',        dates: 'Mar 18–30', surface: 'Hard',  prize: '$9.6M',  status: 'completed', url: 'https://www.miamiopen.com' },
-  { name: 'Monte-Carlo Masters', location: 'Monte-Carlo',   dates: 'Apr 6–13',  surface: 'Clay',  prize: '€5.5M',  status: 'completed', url: 'https://www.montecarlomasters.com' },
-  { name: 'Mutua Madrid Open', location: 'Madrid, Spain',    dates: 'Apr 21 – May 4', surface: 'Clay', prize: '€9.7M', status: 'completed', url: 'https://www.madrid-open.com' },
-  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 5–18', surface: 'Clay', prize: '€8.8M', status: 'completed', url: 'https://www.internazionalibnlditalia.com' },
-  { name: 'Canadian Open',     location: 'Montréal, Canada', dates: 'Jul 22 – Aug 3', surface: 'Hard', prize: '$7.3M', status: 'upcoming', url: 'https://www.rogerscup.com' },
-  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 10–17', surface: 'Hard', prize: '$7.3M', status: 'upcoming', url: 'https://www.wsopen.com' },
-  { name: 'Rolex Paris Masters', location: 'Paris, France',  dates: 'Oct 27 – Nov 2', surface: 'Hard', prize: '€6.0M', status: 'upcoming', url: 'https://www.rolexparismasters.com' },
+  { name: 'BNP Paribas Open', location: 'Indian Wells, CA', dates: 'Mar 4–16', surface: 'Hard',  prize: '$9.6M',  url: 'https://www.bnpparibasopen.com' },
+  { name: 'Miami Open',        location: 'Miami, FL',        dates: 'Mar 18–30', surface: 'Hard',  prize: '$9.6M',  url: 'https://www.miamiopen.com' },
+  { name: 'Monte-Carlo Masters', location: 'Monte-Carlo',   dates: 'Apr 6–13',  surface: 'Clay',  prize: '€5.5M',  url: 'https://www.montecarlomasters.com' },
+  { name: 'Mutua Madrid Open', location: 'Madrid, Spain',    dates: 'Apr 21 – May 4', surface: 'Clay', prize: '€9.7M', url: 'https://www.madrid-open.com' },
+  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 5–18', surface: 'Clay', prize: '€8.8M', url: 'https://www.internazionalibnlditalia.com' },
+  { name: 'Canadian Open',     location: 'Montréal, Canada', dates: 'Jul 22 – Aug 3', surface: 'Hard', prize: '$7.3M', url: 'https://www.rogerscup.com' },
+  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 10–17', surface: 'Hard', prize: '$7.3M', url: 'https://www.wsopen.com' },
+  { name: 'Rolex Paris Masters', location: 'Paris, France',  dates: 'Oct 27 – Nov 2', surface: 'Hard', prize: '€6.0M', url: 'https://www.rolexparismasters.com' },
 ]
 
 const WTA_EVENTS = [
-  { name: 'BNP Paribas Open',  location: 'Indian Wells, CA', dates: 'Mar 4–16',  surface: 'Hard', prize: '$9.6M',  status: 'completed', url: 'https://www.bnpparibasopen.com' },
-  { name: 'Miami Open',         location: 'Miami, FL',        dates: 'Mar 19–30', surface: 'Hard', prize: '$9.6M',  status: 'completed', url: 'https://www.miamiopen.com' },
-  { name: 'Mutua Madrid Open',  location: 'Madrid, Spain',    dates: 'Apr 21 – May 4', surface: 'Clay', prize: '€9.7M', status: 'completed', url: 'https://www.madrid-open.com' },
-  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 5–18', surface: 'Clay', prize: '€4.2M', status: 'completed', url: 'https://www.internazionalibnlditalia.com' },
-  { name: 'Canadian Open',      location: 'Toronto, Canada',  dates: 'Jul 22 – Aug 4', surface: 'Hard', prize: '$7.3M', status: 'upcoming', url: 'https://www.rogerscup.com' },
-  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 10–17', surface: 'Hard', prize: '$7.3M', status: 'upcoming', url: 'https://www.wsopen.com' },
-  { name: 'Guadalajara Open',   location: 'Guadalajara, Mexico', dates: 'Oct 20–26', surface: 'Hard', prize: '$4.5M', status: 'upcoming', url: 'https://www.wtatennis.com' },
+  { name: 'BNP Paribas Open',  location: 'Indian Wells, CA', dates: 'Mar 4–16',  surface: 'Hard', prize: '$9.6M',  url: 'https://www.bnpparibasopen.com' },
+  { name: 'Miami Open',         location: 'Miami, FL',        dates: 'Mar 19–30', surface: 'Hard', prize: '$9.6M',  url: 'https://www.miamiopen.com' },
+  { name: 'Mutua Madrid Open',  location: 'Madrid, Spain',    dates: 'Apr 21 – May 4', surface: 'Clay', prize: '€9.7M', url: 'https://www.madrid-open.com' },
+  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 5–18', surface: 'Clay', prize: '€4.2M', url: 'https://www.internazionalibnlditalia.com' },
+  { name: 'Canadian Open',      location: 'Toronto, Canada',  dates: 'Jul 22 – Aug 4', surface: 'Hard', prize: '$7.3M', url: 'https://www.rogerscup.com' },
+  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 10–17', surface: 'Hard', prize: '$7.3M', url: 'https://www.wsopen.com' },
+  { name: 'Guadalajara Open',   location: 'Guadalajara, Mexico', dates: 'Oct 20–26', surface: 'Hard', prize: '$4.5M', url: 'https://www.wtatennis.com' },
 ]
 
 const YEAR_END = [
-  { name: 'Nitto ATP Finals',  location: 'Inalpi Arena, Turin', dates: 'Nov 9–16, 2026',  surface: 'Hard', prize: '$14.75M', status: 'upcoming', url: 'https://www.nittoatpfinals.com', note: 'Top 8 ATP singles + doubles' },
-  { name: 'WTA Finals',         location: 'Riyadh, Saudi Arabia', dates: 'Nov 2–9, 2026', surface: 'Hard', prize: '$15.25M', status: 'upcoming', url: 'https://www.wtatennis.com/tournaments/finals', note: 'Top 8 WTA singles + doubles' },
-  { name: 'Davis Cup Finals',   location: 'Málaga, Spain',       dates: 'Nov 19–23, 2026', surface: 'Hard', prize: '$12M', status: 'upcoming', url: 'https://www.daviscupfinals.com', note: '16 nations · knockout format' },
-  { name: 'Billie Jean King Cup Finals', location: 'TBD',        dates: 'Nov 2026',         surface: 'Hard', prize: '$6M',  status: 'upcoming', url: 'https://www.billiejeankingtenniscup.com', note: '12 nations · round-robin + knockout' },
+  { name: 'Nitto ATP Finals',  location: 'Inalpi Arena, Turin', dates: 'Nov 9–16, 2026',  surface: 'Hard', prize: '$14.75M', url: 'https://www.nittoatpfinals.com', note: 'Top 8 ATP singles + doubles' },
+  { name: 'WTA Finals',         location: 'Riyadh, Saudi Arabia', dates: 'Nov 2–9, 2026', surface: 'Hard', prize: '$15.25M', url: 'https://www.wtatennis.com/tournaments/finals', note: 'Top 8 WTA singles + doubles' },
+  { name: 'Davis Cup Finals',   location: 'Málaga, Spain',       dates: 'Nov 19–23, 2026', surface: 'Hard', prize: '$12M', url: 'https://www.daviscupfinals.com', note: '16 nations · knockout format' },
+  { name: 'Billie Jean King Cup Finals', location: 'TBD',        dates: 'Nov 2026',         surface: 'Hard', prize: '$6M',  url: 'https://www.billiejeankingtenniscup.com', note: '12 nations · round-robin + knockout' },
 ]
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -250,7 +247,13 @@ function YearEndCard({ event }) {
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export default function EventsPage() {
-  const liveSlam = GRAND_SLAMS.find(s => s.status === 'live')
+  // 状态由日期推算，每次渲染按"今天"重新计算，不再手写
+  const now = new Date()
+  const slams = withStatus(GRAND_SLAMS, now)
+  const atpMasters = withStatus(ATP_MASTERS, now)
+  const wtaEvents = withStatus(WTA_EVENTS, now)
+  const yearEnd = withStatus(YEAR_END, now)
+  const liveSlam = slams.find(s => s.status === 'live')
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -306,7 +309,7 @@ export default function EventsPage() {
         variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14"
       >
-        {GRAND_SLAMS.map(s => <GrandSlamCard key={s.name} slam={s} />)}
+        {slams.map(s => <GrandSlamCard key={s.name} slam={s} />)}
       </motion.div>
 
       {/* Tour Events */}
@@ -323,13 +326,13 @@ export default function EventsPage() {
 
         <TabsContent value="atp">
           <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-2">
-            {ATP_MASTERS.map(e => <TourEventRow key={e.name} event={e} />)}
+            {atpMasters.map(e => <TourEventRow key={e.name} event={e} />)}
           </motion.div>
         </TabsContent>
 
         <TabsContent value="wta">
           <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="space-y-2">
-            {WTA_EVENTS.map(e => <TourEventRow key={e.name} event={e} />)}
+            {wtaEvents.map(e => <TourEventRow key={e.name} event={e} />)}
           </motion.div>
         </TabsContent>
       </Tabs>
@@ -343,7 +346,7 @@ export default function EventsPage() {
         variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12"
       >
-        {YEAR_END.map(e => <YearEndCard key={e.name} event={e} />)}
+        {yearEnd.map(e => <YearEndCard key={e.name} event={e} />)}
       </motion.div>
 
       <motion.p
