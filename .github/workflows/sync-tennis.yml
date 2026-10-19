@@ -1,0 +1,24 @@
+name: Sync Tennis Data
+
+# 每小时从 Live Tennis API 拉取 ATP/WTA 进行中与待开赛比赛，写入 Supabase。
+# 每次运行都有真实写入，同时起到 Supabase 保活作用。
+# 额度：每次 4 次请求 × 24 次/天 = 96，远低于免费层每日 1000 次。
+on:
+  schedule:
+    - cron: '7 * * * *' # 每小时第 7 分（避开整点高峰）
+  workflow_dispatch: {} # 支持手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sync to Supabase
+        env:
+          LIVETENNIS_API_KEY: ${{ secrets.LIVETENNIS_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/sync-tennis.mjs
