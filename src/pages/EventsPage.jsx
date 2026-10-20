@@ -64,23 +64,28 @@ const GRAND_SLAMS = [
 ]
 
 const ATP_MASTERS = [
-  { name: 'BNP Paribas Open', location: 'Indian Wells, CA', dates: 'Mar 4–16', surface: 'Hard',  prize: '$9.6M',  url: 'https://www.bnpparibasopen.com' },
-  { name: 'Miami Open',        location: 'Miami, FL',        dates: 'Mar 18–30', surface: 'Hard',  prize: '$9.6M',  url: 'https://www.miamiopen.com' },
-  { name: 'Monte-Carlo Masters', location: 'Monte-Carlo',   dates: 'Apr 6–13',  surface: 'Clay',  prize: '€5.5M',  url: 'https://www.montecarlomasters.com' },
-  { name: 'Mutua Madrid Open', location: 'Madrid, Spain',    dates: 'Apr 21 – May 4', surface: 'Clay', prize: '€9.7M', url: 'https://www.madrid-open.com' },
-  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 5–18', surface: 'Clay', prize: '€8.8M', url: 'https://www.internazionalibnlditalia.com' },
-  { name: 'Canadian Open',     location: 'Montréal, Canada', dates: 'Jul 22 – Aug 3', surface: 'Hard', prize: '$7.3M', url: 'https://www.rogerscup.com' },
-  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 10–17', surface: 'Hard', prize: '$7.3M', url: 'https://www.wsopen.com' },
-  { name: 'Rolex Paris Masters', location: 'Paris, France',  dates: 'Oct 27 – Nov 2', surface: 'Hard', prize: '€6.0M', url: 'https://www.rolexparismasters.com' },
+  { name: 'BNP Paribas Open', location: 'Indian Wells, CA', dates: 'Mar 4–15', surface: 'Hard',  prize: '$9.6M',  url: 'https://www.bnpparibasopen.com' },
+  { name: 'Miami Open',        location: 'Miami, FL',        dates: 'Mar 18–29', surface: 'Hard',  prize: '$9.6M',  url: 'https://www.miamiopen.com' },
+  { name: 'Monte-Carlo Masters', location: 'Monte-Carlo',   dates: 'Apr 5–12',  surface: 'Clay',  prize: '€5.5M',  url: 'https://www.montecarlomasters.com' },
+  { name: 'Mutua Madrid Open', location: 'Madrid, Spain',    dates: 'Apr 22 – May 3', surface: 'Clay', prize: '€9.7M', url: 'https://www.madrid-open.com' },
+  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 6–17', surface: 'Clay', prize: '€8.8M', url: 'https://www.internazionalibnlditalia.com' },
+  { name: 'Canadian Open',     location: 'Montréal, Canada', dates: 'Aug 2–12', surface: 'Hard', prize: '$7.3M', url: 'https://www.rogerscup.com' },
+  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 13–23', surface: 'Hard', prize: '$7.3M', url: 'https://www.wsopen.com' },
+  { name: 'Rolex Shanghai Masters', location: 'Shanghai, China', dates: 'Oct 7–18', surface: 'Hard', prize: 'TBA', url: 'https://www.atptour.com' },
+  { name: 'Rolex Paris Masters', location: 'Paris, France',  dates: 'Nov 2–8', surface: 'Hard', prize: '€6.0M', url: 'https://www.rolexparismasters.com' },
 ]
 
 const WTA_EVENTS = [
-  { name: 'BNP Paribas Open',  location: 'Indian Wells, CA', dates: 'Mar 4–16',  surface: 'Hard', prize: '$9.6M',  url: 'https://www.bnpparibasopen.com' },
-  { name: 'Miami Open',         location: 'Miami, FL',        dates: 'Mar 19–30', surface: 'Hard', prize: '$9.6M',  url: 'https://www.miamiopen.com' },
-  { name: 'Mutua Madrid Open',  location: 'Madrid, Spain',    dates: 'Apr 21 – May 4', surface: 'Clay', prize: '€9.7M', url: 'https://www.madrid-open.com' },
-  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 5–18', surface: 'Clay', prize: '€4.2M', url: 'https://www.internazionalibnlditalia.com' },
-  { name: 'Canadian Open',      location: 'Toronto, Canada',  dates: 'Jul 22 – Aug 4', surface: 'Hard', prize: '$7.3M', url: 'https://www.rogerscup.com' },
-  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 10–17', surface: 'Hard', prize: '$7.3M', url: 'https://www.wsopen.com' },
+  { name: 'Qatar Open',         location: 'Doha, Qatar',      dates: 'Feb 8–14',  surface: 'Hard', prize: 'TBA',    url: 'https://www.wtatennis.com' },
+  { name: 'Dubai Tennis Championships', location: 'Dubai, UAE', dates: 'Feb 15–21', surface: 'Hard', prize: 'TBA',  url: 'https://www.wtatennis.com' },
+  { name: 'BNP Paribas Open',  location: 'Indian Wells, CA', dates: 'Mar 4–15',  surface: 'Hard', prize: '$9.6M',  url: 'https://www.bnpparibasopen.com' },
+  { name: 'Miami Open',         location: 'Miami, FL',        dates: 'Mar 17–29', surface: 'Hard', prize: '$9.6M',  url: 'https://www.miamiopen.com' },
+  { name: 'Mutua Madrid Open',  location: 'Madrid, Spain',    dates: 'Apr 21 – May 3', surface: 'Clay', prize: '€9.7M', url: 'https://www.madrid-open.com' },
+  { name: 'Internazionali BNL d\'Italia', location: 'Rome, Italy', dates: 'May 5–17', surface: 'Clay', prize: '€4.2M', url: 'https://www.internazionalibnlditalia.com' },
+  { name: 'Canadian Open',      location: 'Toronto, Canada',  dates: 'Aug 2–13', surface: 'Hard', prize: '$7.3M', url: 'https://www.rogerscup.com' },
+  { name: 'Western & Southern Open', location: 'Cincinnati, OH', dates: 'Aug 13–23', surface: 'Hard', prize: '$7.3M', url: 'https://www.wsopen.com' },
+  { name: 'China Open',         location: 'Beijing, China',   dates: 'Sep 30 – Oct 11', surface: 'Hard', prize: 'TBA', url: 'https://www.wtatennis.com' },
+  { name: 'Wuhan Open',         location: 'Wuhan, China',     dates: 'Oct 12–18', surface: 'Hard', prize: 'TBA',  url: 'https://www.wtatennis.com' },
   { name: 'Guadalajara Open',   location: 'Guadalajara, Mexico', dates: 'Oct 20–26', surface: 'Hard', prize: '$4.5M', url: 'https://www.wtatennis.com' },
 ]
 
